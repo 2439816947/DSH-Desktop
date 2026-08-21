@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   DeepSeek Harness 桌面端 · 宣传页（终端日志叙事版）
-  TODO: 替换 JS 中 DOWNLOAD_URL 为真实下载地址（目前占位 "#download"）
+  下载地址：GitHub Releases 直链（tag dsh-desktop，资产 DeepSeek-Harness-setup.exe）
   GitHub: https://github.com/2439816947/DSH-Desktop
 -->
 <html lang="zh-CN">
@@ -215,16 +215,6 @@
   footer a { color: var(--dim); text-decoration: none; }
   footer a:hover { color: var(--b); }
 
-  #toast {
-    position: fixed; left: 50%; bottom: 36px; transform: translateX(-50%) translateY(16px);
-    background: var(--panel); border: 1px solid var(--edge); border-left: 3px solid var(--c);
-    color: var(--ink); padding: 12px 22px; border-radius: 8px; font-size: 13.5px;
-    font-family: var(--mono); opacity: 0; pointer-events: none;
-    transition: opacity 0.18s, transform 0.18s;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
-  }
-  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
   @media (max-width: 720px) {
     .term { margin: 20px 12px 44px; }
     .term-body { padding: 20px 20px 28px; font-size: 13px; }
@@ -267,7 +257,7 @@
       <div class="lede">把 DeepSeek Harness 装进一款专注的桌面应用。无需配置 Node，无需终端，内置固定运行时，中文原生。</div>
       <div class="meta">build v0.5.3 · windows-x64 · 数据本地持久化</div>
       <div class="actions">
-        <a class="btn" id="btn-download" href="#download"><span class="glyph">⬇</span> 下载 Windows 版</a>
+        <a class="btn" id="btn-download" href="https://github.com/2439816947/DSH-Desktop/releases/download/dsh-desktop/DeepSeek-Harness-setup.exe"><span class="glyph">⬇</span> 下载 Windows 版</a>
         <a class="btn ghost" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">查看源码 <span class="glyph">↗</span></a>
       </div>
     </div>
@@ -313,13 +303,12 @@
     <hr class="rule stream">
 
     <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh install --windows</span></div>
-    <div class="line out stream">[..] 正在准备安装包…</div>
-    <div class="line warn stream"><span class="tag">[!]</span> 下载即将上线，敬请期待</div>
+    <div class="line ok stream"><span class="tag">[ok]</span> 安装包已就绪 · DeepSeek-Harness-setup.exe · 151.4 MB</div>
 
     <div class="line download-zone stream">
-      <a class="btn" id="btn-download-2" href="#download"><span class="glyph">⬇</span> 下载 Windows 版</a>
+      <a class="btn" id="btn-download-2" href="https://github.com/2439816947/DSH-Desktop/releases/download/dsh-desktop/DeepSeek-Harness-setup.exe"><span class="glyph">⬇</span> 下载 Windows 版</a>
     </div>
-    <div class="line out stream" style="margin-top:6px;"># 安装包准备完成后，本页将直接提供下载链接；亦可先 <a class="link" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">浏览源码 ↗</a></div>
+    <div class="line out stream" style="margin-top:6px;"># 运行安装程序即可使用；Windows SmartScreen 提示时选择"仍要运行"</div>
     <div class="line"><span class="cursor" aria-hidden="true"></span></div>
   </div>
 </main>
@@ -329,11 +318,8 @@
   <div class="line">// <a href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://github.com/2439816947/DSH-Desktop/blob/main/LICENSE" target="_blank" rel="noopener">MIT 许可证 ↗</a> · © 2026</div>
 </footer>
 
-<div id="toast" role="status">[!] 下载即将上线，敬请期待</div>
-
 <script>
-  // TODO: 替换为真实下载地址（占位）
-  const DOWNLOAD_URL = "#download";
+  // 下载地址：GitHub Releases 直链（更新安装包后替换资产即可，链接不变）
 
   // 鼠标滑动效果：霓虹辉光缓动跟随光标
   (() => {
@@ -402,24 +388,6 @@
       if (i >= streams.length) window.clearInterval(timer);
     }, 200);
   })();
-
-  const toast = document.getElementById("toast");
-  let toastTimer = 0;
-  function showToast() {
-    toast.classList.add("show");
-    window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
-  }
-  document.querySelectorAll("#btn-download, #btn-download-2").forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (DOWNLOAD_URL !== "#download") {
-        window.open(DOWNLOAD_URL, "_blank");
-        return;
-      }
-      showToast();
-    });
-  });
 </script>
 <style>
   .hide-stream { display: none !important; }
