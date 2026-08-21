@@ -2,9 +2,6 @@
 
 DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。
 
-- 宣传与下载页：<https://2439816947.github.io/DSH-Desktop/>
-- 版本记录：[CHANGELOG.md](CHANGELOG.md)
-
 ## 特性
 
 - **中文界面**：权限选择、计划模式、命令菜单、推理等级中文化；思考均为简体中文
