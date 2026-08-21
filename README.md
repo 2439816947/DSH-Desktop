@@ -1,21 +1,28 @@
-# DeepSeek Harness 妗岄潰绔?
-DeepSeek Harness 鐨?Windows 妗岄潰绔紝鍙屽嚮鍗崇敤锛屾棤闇€棰勮 Node.js銆?
-## 鐗规€?
-- **涓枃鐣岄潰**锛氭潈闄愰€夋嫨銆佽鍒掓ā寮忋€佸懡浠よ彍鍗曘€佹帹鐞嗙瓑绾т腑鏂囧寲锛涙€濊€冨潎涓虹畝浣撲腑鏂?- **浣欓鎮诞鍗?*锛氬璇濆尯瀹炴椂灞曠ず DeepSeek 璐︽埛浣欓
-- **闇撹櫣瑙嗚**锛氳摑绱矇娓愬彉椴搁奔鍝佺墝锛岃鐩栫獥鍙ｃ€佷晶杈规爮銆佸叧浜庨〉
-- **搴旂敤鍐呭弽棣?*锛氳缃?鈫?鍏充簬 鈫?鍙嶉锛岄偖浠剁洿鍙?- **鏈湴浼樺厛**锛氭暟鎹瓨浜庢湰鏈?`%APPDATA%\dsh-desktop-custom\`锛屽彧鐩戝惉 `127.0.0.1` 闅忔満绔彛
+# DeepSeek Harness 桌面端
 
-## 瀹夎
+DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。
 
-1. 浠?[GitHub Releases](https://github.com/2439816947/DSH-Desktop/releases) 涓嬭浇 `DeepSeek-Harness-setup.exe`
-2. 杩愯瀹夎锛圵indows SmartScreen 鎻愮ず鏃堕€夋嫨"浠嶈杩愯"锛?3. 棣栨鎵撳紑鍚庯紝鍦ㄨ缃腑閰嶇疆妯″瀷鎻愪緵鏂逛笌 API Key锛屽嵆鍙紑濮嬪璇?
-## 鏋勫缓
+## 特性
+
+- **中文界面**：权限选择、计划模式、命令菜单、推理等级中文化；思考均为简体中文
+- **余额悬浮卡**：对话区实时展示 DeepSeek 账户余额
+- **霓虹视觉**：蓝紫粉渐变鲸鱼品牌，覆盖窗口、侧边栏、关于页
+- **应用内反馈**：设置 → 关于 → 反馈，邮件直发
+- **本地优先**：数据存于本机 `%APPDATA%\dsh-desktop-custom\`，只监听 `127.0.0.1` 随机端口
+
+## 安装
+
+1. 从 [GitHub Releases](https://github.com/2439816947/DSH-Desktop/releases) 下载 `DeepSeek-Harness-setup.exe`
+2. 运行安装（Windows SmartScreen 提示时选择"仍要运行"）
+3. 首次打开后，在设置中配置模型提供方与 API Key，即可开始对话
+
+## 构建
 
 ```sh
 npm install
 npx electron-builder --win --x64 --config electron-builder.yml
 ```
 
-## 璁稿彲
+## 许可
 
-澶栧３浠ｇ爜 MIT锛汥eepSeek Harness 鏈綋 MIT銆?
+外壳代码 MIT；DeepSeek Harness 本体 MIT。
