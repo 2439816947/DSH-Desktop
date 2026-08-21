@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!--
+  DeepSeek Harness 桌面端 · 宣传页（终端日志叙事版）
+  TODO: 替换 JS 中 DOWNLOAD_URL 为真实下载地址（目前占位 "#download"）
+  GitHub: https://github.com/2439816947/DSH-Desktop
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSeek Harness 桌面端 · 你的 AI 编程桌面，随时就绪</title>
+<meta name="description" content="DeepSeek Harness 桌面端——把 DeepSeek Harness 装进桌面应用：无需配置 Node，内置固定运行时，中文原生，开箱即用。">
+<meta name="theme-color" content="#04050a">
+<meta property="og:title" content="DeepSeek Harness 桌面端 · 你的 AI 编程桌面，随时就绪">
+<meta property="og:description" content="无需配置 Node，内置固定运行时。中文原生、计划模式、余额悬浮卡。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%234D6BFE'/%3E%3Cstop offset='0.5' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%23FF4ECD'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M48.8354 10.0479C48.3232 9.79199 48.1025 10.2798 47.8032 10.5278C47.7007 10.6079 47.6143 10.7119 47.5273 10.8076C46.7793 11.624 45.9048 12.1597 44.7622 12.0957C43.0923 12 41.666 12.5356 40.4058 13.8398C40.1377 12.2319 39.2476 11.272 37.8926 10.6558C37.1836 10.3359 36.4668 10.0156 35.9702 9.31982C35.6235 8.82373 35.5293 8.27197 35.356 7.72754C35.2456 7.3999 35.1353 7.06396 34.7651 7.00781C34.3633 6.94385 34.2056 7.2876 34.0479 7.57568C33.418 8.75195 33.1733 10.0479 33.1973 11.3599C33.2524 14.312 34.4736 16.6641 36.8999 18.3359C37.1758 18.5278 37.2466 18.7197 37.1597 19C36.9946 19.5757 36.7974 20.1357 36.624 20.7119C36.5137 21.0801 36.3486 21.1597 35.9624 21C34.6309 20.4321 33.481 19.5918 32.4644 18.5757C30.7393 16.8721 29.1792 14.9917 27.2334 13.52C26.7764 13.1758 26.3193 12.856 25.8467 12.5518C23.8618 10.584 26.1069 8.96777 26.627 8.77588C27.1704 8.57568 26.8159 7.8877 25.0591 7.896C23.3022 7.90381 21.6953 8.50391 19.647 9.30371C19.3477 9.42383 19.0322 9.51172 18.7095 9.58398C16.8501 9.22363 14.9199 9.14355 12.9033 9.37598C9.10596 9.80762 6.07275 11.6396 3.84326 14.7681C1.16455 18.5278 0.53418 22.7998 1.30664 27.2559C2.11768 31.9521 4.46582 35.8398 8.07373 38.8799C11.8159 42.0322 16.1255 43.5762 21.041 43.2803C24.0269 43.104 27.3516 42.6963 31.1016 39.4561C32.0469 39.936 33.0396 40.1279 34.686 40.272C35.9546 40.3921 37.1758 40.208 38.1211 40.0078C39.6021 39.688 39.4995 38.2881 38.9639 38.0322C34.623 35.9678 35.5762 36.8081 34.71 36.1279C36.9155 33.4639 40.2402 30.6958 41.54 21.728C41.6426 21.0161 41.5557 20.5679 41.54 19.9917C41.5322 19.6396 41.6108 19.5039 42.0049 19.4639C43.0923 19.3359 44.1479 19.0317 45.1167 18.4878C47.9292 16.9199 49.064 14.3438 49.3315 11.2559C49.3711 10.7837 49.3237 10.2959 48.8354 10.0479Z'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #04050a;
+    --panel: #090b13;
+    --edge: #171a26;
+    --ink: #d9dde9;
+    --dim: #6b7288;
+    --faint: #3c4257;
+    --a: #4D6BFE;
+    --b: #8B5CF6;
+    --c: #FF4ECD;
+    --mono: "Cascadia Code", "JetBrains Mono", Consolas, "Sarasa Mono SC", "Courier New", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--mono);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .bg {
+    position: fixed; inset: -40% 0; z-index: -2; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    transform: translateY(var(--sy, 0px));
+    will-change: transform;
+  }
+  #scroll-progress {
+    position: fixed; top: 0; left: 0; height: 2.5px; width: 0; z-index: 60;
+    background: linear-gradient(90deg, var(--a), var(--b) 55%, var(--c));
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
+    border-radius: 0 2px 2px 0;
+  }
+  #cursor-glow {
+    position: fixed; left: 0; top: 0; z-index: 59; pointer-events: none;
+    width: 520px; height: 520px; margin: -260px 0 0 -260px;
+    border-radius: 50%; opacity: 0;
+    background:
+      radial-gradient(circle, rgba(139, 92, 246, 0.12), rgba(77, 107, 254, 0.055) 40%, transparent 68%),
+      radial-gradient(circle at 60% 60%, rgba(255, 78, 205, 0.06), transparent 55%);
+    mix-blend-mode: screen;
+    will-change: transform;
+    transition: opacity 0.5s ease;
+  }
+  #cursor-glow.on { opacity: 1; }
+
+  /* 左右侧装饰：竖排小字 + 霓虹竖线（宽屏显示） */
+  .side-note {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-size: 11px; letter-spacing: 0.45em;
+    color: var(--faint);
+    z-index: -1;
+    user-select: none; pointer-events: none;
+    white-space: nowrap;
+  }
+  .side-note.left { left: 40px; }
+  .side-note.right { right: 40px; }
+  .side-note .accent { color: var(--b); text-shadow: 0 0 12px rgba(139, 92, 246, 0.6); }
+  .side-rule {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 1px; height: 200px; z-index: -1; pointer-events: none;
+    background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.38), transparent);
+  }
+  .side-rule.left { left: 26px; }
+  .side-rule.right { right: 26px; }
+  @media (max-width: 1239px) { .side-note, .side-rule { display: none; } }
+  .bg::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(620px 380px at 12% -4%, rgba(77, 107, 254, 0.14), transparent 62%),
+      radial-gradient(560px 420px at 96% 30%, rgba(255, 78, 205, 0.09), transparent 60%),
+      radial-gradient(900px 600px at 50% 120%, rgba(139, 92, 246, 0.10), transparent 64%);
+  }
+
+  .term {
+    max-width: 880px;
+    margin: 48px auto 64px;
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 14px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(139, 92, 246, 0.06);
+    overflow: hidden;
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--edge);
+    background: rgba(255, 255, 255, 0.015);
+  }
+  .term-bar .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.a { background: var(--a); box-shadow: 0 0 8px rgba(77, 107, 254, 0.7); }
+  .dot.b { background: var(--b); box-shadow: 0 0 8px rgba(139, 92, 246, 0.7); }
+  .dot.c { background: var(--c); box-shadow: 0 0 8px rgba(255, 78, 205, 0.7); }
+  .term-bar .title { margin-left: 6px; color: var(--dim); font-size: 12.5px; letter-spacing: 0.02em; }
+  .term-bar .ping { margin-left: auto; color: var(--faint); font-size: 11px; }
+
+  .term-body { padding: 26px 30px 34px; font-size: 14.5px; }
+
+  .line { white-space: pre-wrap; word-break: break-word; }
+  .line + .line { margin-top: 2px; }
+  .prompt { color: var(--dim); }
+  .prompt .cmd { color: var(--ink); font-weight: 600; }
+  .prompt .dollar { color: var(--b); }
+  .out { color: var(--dim); }
+  .ok { color: var(--ink); }
+  .ok .tag { color: var(--a); }
+  .warn { color: var(--c); }
+  .warn .tag { color: var(--c); }
+  .dotline { color: var(--faint); }
+  .num { color: var(--faint); margin-right: 6px; }
+  a.link { color: var(--b); text-decoration: none; border-bottom: 1px dashed rgba(139, 92, 246, 0.45); }
+  a.link:hover { color: var(--c); border-bottom-color: var(--c); }
+
+  .cursor {
+    display: inline-block; width: 0.62em; height: 1.08em;
+    margin-left: 2px; vertical-align: text-bottom;
+    background: linear-gradient(180deg, var(--a), var(--c));
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+    animation: blink 1.05s steps(1) infinite;
+  }
+  @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+
+  .hero { padding: 26px 0 8px; }
+  .hero .eyebrow { color: var(--faint); font-size: 12.5px; margin-bottom: 4px; }
+  .hero .eyebrow .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 8px; box-shadow: 0 0 10px rgba(255, 78, 205, 0.9); animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .hero .whale {
+    width: 124px; height: 124px; margin: 8px 0 16px;
+    filter: drop-shadow(0 0 24px rgba(139, 92, 246, 0.5)) drop-shadow(0 0 60px rgba(77, 107, 254, 0.22));
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .hero .brand {
+    font-size: 40px; font-weight: 700; letter-spacing: 0.01em; line-height: 1.25;
+    background: linear-gradient(92deg, var(--a), var(--b) 52%, var(--c));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .slogan { margin-top: 8px; color: var(--ink); font-size: 16px; }
+  .hero .slogan em { font-style: normal; color: var(--c); }
+  .hero .lede { margin-top: 8px; color: var(--dim); font-size: 14px; max-width: 560px; }
+  .hero .meta { margin-top: 8px; color: var(--faint); font-size: 12.5px; }
+
+  .hero .actions { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 24px;
+    font-family: var(--mono); font-size: 14.5px; font-weight: 600;
+    color: #fff; text-decoration: none;
+    border: 1px solid transparent; border-radius: 10px;
+    background:
+      linear-gradient(var(--panel), var(--panel)) padding-box,
+      linear-gradient(92deg, var(--a), var(--b) 55%, var(--c)) border-box;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.28);
+    transition: box-shadow 0.18s, transform 0.18s;
+    cursor: pointer;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(139, 92, 246, 0.45); }
+  .btn .glyph { background: linear-gradient(92deg, var(--a), var(--c)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .btn.ghost {
+    color: var(--ink); background: var(--panel);
+    border-color: var(--edge); box-shadow: none;
+  }
+  .btn.ghost:hover { border-color: var(--b); box-shadow: 0 8px 26px rgba(139, 92, 246, 0.18); }
+
+  .rule { border: none; border-top: 1px dashed var(--edge); margin: 26px 0 22px; }
+
+  .feature { padding: 2px 0; }
+  .feature .name { color: var(--ink); }
+  .feature .sep { color: var(--faint); }
+  .feature .desc { color: var(--dim); }
+
+  .proof { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 4px; }
+  .proof .cell {
+    flex: 1; min-width: 150px;
+    border: 1px solid var(--edge); border-radius: 10px;
+    padding: 12px 16px; background: rgba(255, 255, 255, 0.015);
+  }
+  .proof .cell strong { display: block; font-size: 19px; color: var(--ink); }
+  .proof .cell span { display: block; margin-top: 3px; font-size: 12px; color: var(--dim); }
+
+  .kv { color: var(--ink); }
+  .kv dt { display: inline; color: var(--dim); }
+  .kv dd { display: inline; margin: 0; }
+  .kv + .kv { margin-top: 4px; }
+
+  .download-zone { margin-top: 14px; }
+
+  footer {
+    max-width: 880px; margin: 0 auto 44px; padding: 0 30px;
+    color: var(--faint); font-size: 12px;
+  }
+  footer .line + .line { margin-top: 2px; }
+  footer a { color: var(--dim); text-decoration: none; }
+  footer a:hover { color: var(--b); }
+
+  #toast {
+    position: fixed; left: 50%; bottom: 36px; transform: translateX(-50%) translateY(16px);
+    background: var(--panel); border: 1px solid var(--edge); border-left: 3px solid var(--c);
+    color: var(--ink); padding: 12px 22px; border-radius: 8px; font-size: 13.5px;
+    font-family: var(--mono); opacity: 0; pointer-events: none;
+    transition: opacity 0.18s, transform 0.18s;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 720px) {
+    .term { margin: 20px 12px 44px; }
+    .term-body { padding: 20px 20px 28px; font-size: 13px; }
+    .hero .brand { font-size: 30px; }
+    .hero .whale { width: 96px; height: 96px; }
+    .proof { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="cursor-glow" aria-hidden="true"></div>
+<div class="side-rule left" aria-hidden="true"></div>
+<div class="side-rule right" aria-hidden="true"></div>
+<div class="side-note left" aria-hidden="true">DEEPSEEK HARNESS · <span class="accent">DESKTOP EDITION</span></div>
+<div class="side-note right" aria-hidden="true"><span class="accent">本地 AI</span> · 数据留在本机 · MIT 开源</div>
+<div class="bg" aria-hidden="true"></div>
+
+<main class="term">
+  <div class="term-bar">
+    <span class="dot a"></span><span class="dot b"></span><span class="dot c"></span>
+    <span class="title">dsh.exe — DeepSeek Harness 桌面端</span>
+    <span class="ping">local://desktop</span>
+  </div>
+
+  <div class="term-body" id="boot">
+
+    <div class="line prompt"><span class="dollar">$</span> <span class="cmd">dsh --about</span></div>
+
+    <div class="line hero stream">
+      <div class="eyebrow"><span class="pulse"></span>基于开源 DSH Desktop</div>
+      <svg class="whale" viewBox="0 0 50 50" aria-label="DeepSeek Harness 桌面端 霓虹鲸鱼">
+        <defs><linearGradient id="whale-neon" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4D6BFE"/><stop offset="0.5" stop-color="#8B5CF6"/><stop offset="1" stop-color="#FF4ECD"/>
+        </linearGradient></defs>
+        <path fill="url(#whale-neon)" d="M48.8354 10.0479C48.3232 9.79199 48.1025 10.2798 47.8032 10.5278C47.7007 10.6079 47.6143 10.7119 47.5273 10.8076C46.7793 11.624 45.9048 12.1597 44.7622 12.0957C43.0923 12 41.666 12.5356 40.4058 13.8398C40.1377 12.2319 39.2476 11.272 37.8926 10.6558C37.1836 10.3359 36.4668 10.0156 35.9702 9.31982C35.6235 8.82373 35.5293 8.27197 35.356 7.72754C35.2456 7.3999 35.1353 7.06396 34.7651 7.00781C34.3633 6.94385 34.2056 7.2876 34.0479 7.57568C33.418 8.75195 33.1733 10.0479 33.1973 11.3599C33.2524 14.312 34.4736 16.6641 36.8999 18.3359C37.1758 18.5278 37.2466 18.7197 37.1597 19C36.9946 19.5757 36.7974 20.1357 36.624 20.7119C36.5137 21.0801 36.3486 21.1597 35.9624 21C34.6309 20.4321 33.481 19.5918 32.4644 18.5757C30.7393 16.8721 29.1792 14.9917 27.2334 13.52C26.7764 13.1758 26.3193 12.856 25.8467 12.5518C23.8618 10.584 26.1069 8.96777 26.627 8.77588C27.1704 8.57568 26.8159 7.8877 25.0591 7.896C23.3022 7.90381 21.6953 8.50391 19.647 9.30371C19.3477 9.42383 19.0322 9.51172 18.7095 9.58398C16.8501 9.22363 14.9199 9.14355 12.9033 9.37598C9.10596 9.80762 6.07275 11.6396 3.84326 14.7681C1.16455 18.5278 0.53418 22.7998 1.30664 27.2559C2.11768 31.9521 4.46582 35.8398 8.07373 38.8799C11.8159 42.0322 16.1255 43.5762 21.041 43.2803C24.0269 43.104 27.3516 42.6963 31.1016 39.4561C32.0469 39.936 33.0396 40.1279 34.686 40.272C35.9546 40.3921 37.1758 40.208 38.1211 40.0078C39.6021 39.688 39.4995 38.2881 38.9639 38.0322C34.623 35.9678 35.5762 36.8081 34.71 36.1279C36.9155 33.4639 40.2402 30.6958 41.54 21.728C41.6426 21.0161 41.5557 20.5679 41.54 19.9917C41.5322 19.6396 41.6108 19.5039 42.0049 19.4639C43.0923 19.3359 44.1479 19.0317 45.1167 18.4878C47.9292 16.9199 49.064 14.3438 49.3315 11.2559C49.3711 10.7837 49.3237 10.2959 48.8354 10.0479ZM24.3262 37.8398C20.1196 34.4639 18.0791 33.3521 17.2358 33.3999C16.4482 33.4482 16.5898 34.3682 16.7632 34.9678C16.9443 35.5601 17.1812 35.9683 17.5117 36.4878C17.7402 36.832 17.8979 37.3442 17.2832 37.728C15.9282 38.584 13.5728 37.4399 13.4624 37.3838C10.7207 35.7358 8.42822 33.5601 6.81348 30.584C5.25342 27.7197 4.34766 24.6479 4.19775 21.3677C4.1582 20.5757 4.38672 20.2959 5.15869 20.1519C6.17529 19.96 7.22314 19.9199 8.23926 20.0718C12.5327 20.7119 16.1885 22.6719 19.2529 25.7759C21.002 27.5439 22.3252 29.6558 23.6885 31.7202C25.1377 33.9121 26.6978 36 28.6831 37.7119C29.3843 38.312 29.9434 38.7681 30.479 39.104C28.8643 39.2881 26.1699 39.3281 24.3262 37.8398ZM26.3433 24.6001C26.3433 24.248 26.6191 23.9678 26.9658 23.9678C27.0444 23.9678 27.1152 23.9839 27.1782 24.0078C27.2651 24.04 27.3438 24.0879 27.4067 24.1602C27.5171 24.272 27.5801 24.4321 27.5801 24.6001C27.5801 24.9521 27.3042 25.2319 26.9575 25.2319C26.6108 25.2319 26.3433 24.9521 26.3433 24.6001ZM32.6064 27.8799C32.2046 28.0479 31.8027 28.1919 31.4165 28.208C30.8179 28.2397 30.1641 27.9922 29.8096 27.688C29.2583 27.2158 28.8643 26.9521 28.6987 26.1279C28.6279 25.7759 28.6675 25.2319 28.7305 24.9199C28.8721 24.248 28.7144 23.8159 28.2495 23.4238C27.8716 23.104 27.3911 23.0161 26.8633 23.0161C26.666 23.0161 26.4849 22.9277 26.3511 22.856C26.1304 22.7441 25.9492 22.4639 26.1226 22.1201C26.1777 22.0078 26.4458 21.7358 26.5088 21.688C27.2256 21.272 28.0527 21.4077 28.8169 21.7197C29.5259 22.0161 30.0615 22.5601 30.834 23.3281C31.6216 24.2559 31.7632 24.5117 32.2124 25.208C32.5669 25.752 32.8901 26.312 33.1104 26.9521C33.2446 27.3521 33.0713 27.6802 32.6064 27.8799Z"/>
+      </svg>
+      <div class="brand">DeepSeek Harness 桌面端</div>
+      <div class="slogan">你的 AI 编程桌面。<em>随时就绪。</em></div>
+      <div class="lede">把 DeepSeek Harness 装进一款专注的桌面应用。无需配置 Node，无需终端，内置固定运行时，中文原生。</div>
+      <div class="meta">build v0.5.3 · windows-x64 · 数据本地持久化</div>
+      <div class="actions">
+        <a class="btn" id="btn-download" href="#download"><span class="glyph">⬇</span> 下载 Windows 版</a>
+        <a class="btn ghost" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">查看源码 <span class="glyph">↗</span></a>
+      </div>
+    </div>
+
+    <hr class="rule stream">
+
+    <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh --proof</span></div>
+    <div class="line stream"><div class="proof">
+      <div class="cell"><strong>60 秒</strong><span>目标：从下载到开始首个任务</span></div>
+      <div class="cell"><strong>0 配置</strong><span>内置 Node 运行时，无需环境准备</span></div>
+      <div class="cell"><strong>0 意外</strong><span>固定版本，候选先验证再升级</span></div>
+    </div></div>
+
+    <hr class="rule stream">
+
+    <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh --features</span></div>
+
+    <div class="line ok feature stream"><span class="num">01</span><span class="tag">[ok]</span> 像普通应用一样打开 <span class="sep">──</span> <span class="desc">内置运行时，桌面启动即开始工作</span></div>
+    <div class="line ok feature stream"><span class="num">02</span><span class="tag">[ok]</span> 稳定是默认设计 <span class="sep">──</span> <span class="desc">固定版本，升级前先看清状态</span></div>
+    <div class="line ok feature stream"><span class="num">03</span><span class="tag">[ok]</span> 独立桌面外壳 <span class="sep">──</span> <span class="desc">窗口 / 托盘 / 更新一体，独立 DSH_HOME</span></div>
+    <div class="line ok feature stream"><span class="num">04</span><span class="tag">[ok]</span> 中文原生 <span class="sep">──</span> <span class="desc">权限 / 命令菜单 / 推理等级，全中文化</span></div>
+    <div class="line ok feature stream"><span class="num">05</span><span class="tag">[ok]</span> 计划模式 <span class="sep">──</span> <span class="desc">输入框常驻开关，一键进出</span></div>
+    <div class="line ok feature stream"><span class="num">06</span><span class="tag">[ok]</span> 余额悬浮卡 <span class="sep">──</span> <span class="desc">实时余额，与输入框完全对齐</span></div>
+    <div class="line ok feature stream"><span class="num">07</span><span class="tag">[ok]</span> 思考中文 <span class="sep">──</span> <span class="desc">任何情况下推理均为简体中文</span></div>
+    <div class="line ok feature stream"><span class="num">08</span><span class="tag">[ok]</span> 本地持久化 <span class="sep">──</span> <span class="desc">会话与配置留在本机</span></div>
+
+    <hr class="rule stream">
+
+    <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh --trust</span></div>
+    <div class="line ok feature stream"><span class="num">01</span><span class="tag">[ok]</span> 数据彼此隔离 <span class="sep">──</span> <span class="desc">独立 DSH_HOME，不动你的命令行配置</span></div>
+    <div class="line ok feature stream"><span class="num">02</span><span class="tag">[ok]</span> 安装之前先审查 <span class="sep">──</span> <span class="desc">插件源码与完整性检查后再启用</span></div>
+    <div class="line ok feature stream"><span class="num">03</span><span class="tag">[ok]</span> 遇到异常就停止 <span class="sep">──</span> <span class="desc">健康检查失败即阻断，不把风险交给用户</span></div>
+    <div class="line out stream"># 架构说明：<a class="link" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">github.com/2439816947/DSH-Desktop ↗</a></div>
+
+    <hr class="rule stream">
+
+    <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh --status</span></div>
+    <div class="line stream"><dl class="kv"><dt>DeepSeek Harness 桌面端</dt><dd> v0.5.3</dd></dl></div>
+    <div class="line stream"><dl class="kv"><dt>内置 Harness</dt><dd> 固定运行时（随发行版锁定）</dd></dl></div>
+    <div class="line stream"><dl class="kv"><dt>平台</dt><dd> Windows x64</dd></dl></div>
+    <div class="line stream"><dl class="kv"><dt>源码仓库</dt><dd> <a class="link" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">github.com/2439816947/DSH-Desktop ↗</a></dd></dl></div>
+
+    <hr class="rule stream">
+
+    <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh install --windows</span></div>
+    <div class="line out stream">[..] 正在准备安装包…</div>
+    <div class="line warn stream"><span class="tag">[!]</span> 下载即将上线，敬请期待</div>
+
+    <div class="line download-zone stream">
+      <a class="btn" id="btn-download-2" href="#download"><span class="glyph">⬇</span> 下载 Windows 版</a>
+    </div>
+    <div class="line out stream" style="margin-top:6px;"># 安装包准备完成后，本页将直接提供下载链接；亦可先 <a class="link" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">浏览源码 ↗</a></div>
+    <div class="line"><span class="cursor" aria-hidden="true"></span></div>
+  </div>
+</main>
+
+<footer>
+  <div class="line">// 基于开源 DSH Desktop 构建 · 非 DeepSeek 官方产品，无从属或背书关系。</div>
+  <div class="line">// <a href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://github.com/2439816947/DSH-Desktop/blob/main/LICENSE" target="_blank" rel="noopener">MIT 许可证 ↗</a> · © 2026</div>
+</footer>
+
+<div id="toast" role="status">[!] 下载即将上线，敬请期待</div>
+
+<script>
+  // TODO: 替换为真实下载地址（占位）
+  const DOWNLOAD_URL = "#download";
+
+  // 鼠标滑动效果：霓虹辉光缓动跟随光标
+  (() => {
+    const glow = document.getElementById("cursor-glow");
+    if (glow === null) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    let tx = -9999, ty = -9999, x = -9999, y = -9999, raf = 0, shown = false;
+    const onMove = (event) => {
+      tx = event.clientX;
+      ty = event.clientY;
+      if (!shown) {
+        shown = true;
+        x = tx; y = ty;
+        glow.classList.add("on");
+      }
+    };
+    const tick = () => {
+      raf = 0;
+      x += (tx - x) * 0.14;
+      y += (ty - y) * 0.14;
+      glow.style.transform = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0)";
+      if (Math.abs(tx - x) > 0.3 || Math.abs(ty - y) > 0.3) {
+        raf = window.requestAnimationFrame(tick);
+      }
+    };
+    const kick = () => { if (raf === 0) raf = window.requestAnimationFrame(tick); };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mousemove", kick, { passive: true });
+  })();
+
+  // 滚动效果：霓虹进度条 + 背景网格视差
+  (() => {
+    const bar = document.getElementById("scroll-progress");
+    const bg = document.querySelector(".bg");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf !== 0) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const p = max > 0 ? window.scrollY / max : 0;
+        if (bar !== null) bar.style.width = (p * 100).toFixed(2) + "%";
+        if (bg !== null && !reduce) bg.style.setProperty("--sy", (window.scrollY * 0.05).toFixed(1) + "px");
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // 终端"开机"动画：初始隐藏流式行，再逐行输出
+  (() => {
+    const streams = Array.from(document.querySelectorAll(".stream"));
+    if (streams.length === 0) return;
+    for (const el of streams) el.classList.add("hide-stream");
+    let i = 0;
+    const timer = window.setInterval(() => {
+      const el = streams[i];
+      if (el !== undefined) {
+        el.classList.remove("hide-stream");
+        el.classList.add("enter");
+      }
+      i += 1;
+      if (i >= streams.length) window.clearInterval(timer);
+    }, 200);
+  })();
+
+  const toast = document.getElementById("toast");
+  let toastTimer = 0;
+  function showToast() {
+    toast.classList.add("show");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+  }
+  document.querySelectorAll("#btn-download, #btn-download-2").forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (DOWNLOAD_URL !== "#download") {
+        window.open(DOWNLOAD_URL, "_blank");
+        return;
+      }
+      showToast();
+    });
+  });
+</script>
+<style>
+  .hide-stream { display: none !important; }
+  .stream.enter { display: block; animation: reveal 0.22s ease; }
+  .line.stream.enter { display: block; }
+  .hero.stream.enter { display: block; }
+  hr.stream.enter { display: block; }
+  .download-zone.stream.enter { display: block; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; opacity: 0.85; }
+    .hero .whale { animation: none; }
+    .hero .eyebrow .pulse { animation: none; }
+    .hide-stream { display: block !important; }
+  }
+</style>
+</body>
+</html>

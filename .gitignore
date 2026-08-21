@@ -1,0 +1,23 @@
+# ── 二进制运行时（大文件，不提交） ──
+*.exe
+*.exe.bak
+*.dll
+*.pak
+*.bin
+*.dat
+locales/
+snapshot_blob.bin
+v8_context_snapshot.bin
+icudtl.dat
+resources.pak
+chrome_100_percent.pak
+chrome_200_percent.pak
+
+# ── 依赖 ──
+node_modules/
+resources/app/node_modules/
+
+# ── 日志与临时 ──
+logs/
+*.log
+temp/

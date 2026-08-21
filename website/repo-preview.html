@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2439816947/DSH-Desktop · GitHub 预览（1:1 复刻）</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; color: #1F2328; background: #fff; font-size: 14px; line-height: 1.5; }
+  a { color: #0969da; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .gh-topnav { background: #24292f; color: #fff; display: flex; align-items: center; gap: 16px; padding: 12px 24px; position: sticky; top: 0; z-index: 100; }
+  .gh-mark { fill: #fff; flex: none; }
+  .gh-topnav input[type=search] { background: #57606a; border: 0; border-radius: 6px; color: #fff; padding: 5px 12px; width: 300px; font-size: 14px; outline: none; }
+  .gh-topnav input::placeholder { color: #c9d1d9; }
+  .gh-topnav .spacer { flex: 1; }
+  .gh-topnav .link { color: #fff; font-size: 14px; font-weight: 600; margin: 0 8px; text-decoration: none; }
+  .gh-topnav .link:hover { color: #58a6ff; }
+  .gh-topnav .btn { border: 1px solid #8b949e; border-radius: 6px; color: #fff; padding: 3px 12px; font-size: 14px; }
+  .gh-repohead { border-bottom: 1px solid #d0d7de; background: #f6f8fa; padding: 16px 24px 0; }
+  .gh-repohead .wrap { max-width: 1280px; margin: 0 auto; }
+  .gh-crumb { font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .gh-crumb .owner { color: #0969da; text-decoration: none; }
+  .gh-crumb .sep { color: #57606a; font-weight: 400; }
+  .gh-crumb .repo { color: #0969da; text-decoration: none; }
+  .gh-crumb .public { border: 1px solid #d0d7de; border-radius: 24px; color: #57606a; font-size: 12px; font-weight: 500; padding: 2px 10px; }
+  .gh-tabs { display: flex; gap: 4px; margin-top: 16px; flex-wrap: wrap; }
+  .gh-tab { color: #24292f; font-size: 14px; font-weight: 600; padding: 8px 12px; border-bottom: 2px solid transparent; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .gh-tab.active { border-bottom-color: #fd8c73; }
+  .gh-tab .count { background: #afb8c1; border-radius: 20px; color: #fff; font-size: 11px; font-weight: 500; padding: 0 7px; }
+  .gh-main { max-width: 1280px; margin: 0 auto; padding: 24px; display: flex; gap: 24px; align-items: flex-start; }
+  .gh-content { flex: 1; min-width: 0; }
+  .gh-filenav { border: 1px solid #d0d7de; border-radius: 6px 6px 0 0; background: #f6f8fa; display: flex; align-items: center; gap: 12px; padding: 8px 16px; }
+  .gh-filenav .branch { color: #24292f; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .gh-filenav .branch svg { fill: #57606a; }
+  .gh-filenav .spacer { flex: 1; }
+  .gh-filenav .btn { border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 6px; color: #24292f; font-size: 12px; font-weight: 600; padding: 4px 12px; display: flex; align-items: center; gap: 4px; }
+  .gh-filenav .btn.primary { background: #1f883d; border-color: #1f883d; color: #fff; }
+  .gh-filelist { border: 1px solid #d0d7de; border-top: 0; }
+  .gh-filelist .row { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-bottom: 1px solid #eaeef2; font-size: 14px; }
+  .gh-filelist .row:last-child { border-bottom: 0; }
+  .gh-filelist .row svg { fill: #57606a; flex: none; }
+  .gh-filelist .row .name { color: #0969da; font-weight: 500; }
+  .gh-filelist .row .msg { color: #57606a; flex: 1; margin-left: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gh-filelist .row .time { color: #57606a; font-size: 12px; flex: none; }
+  .markdown-body { border: 1px solid #d0d7de; border-top: 0; border-radius: 0 0 6px 6px; padding: 16px 32px 32px; max-width: 980px; }
+  .markdown-body h1 { font-size: 1.8em; padding-bottom: 0.3em; border-bottom: 1px solid #d0d7de; margin: 24px 0 16px; font-weight: 600; line-height: 1.25; }
+  .markdown-body h2 { font-size: 1.5em; padding-bottom: 0.3em; border-bottom: 1px solid #d0d7de; margin: 24px 0 16px; font-weight: 600; line-height: 1.25; }
+  .markdown-body p { margin: 0 0 16px; }
+  .markdown-body ul, .markdown-body ol { margin: 0 0 16px; padding-left: 2em; }
+  .markdown-body li { margin: 0.25em 0; }
+  .markdown-body code { background: #f6f8fa; border-radius: 6px; padding: 0.2em 0.4em; font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 85%; }
+  .markdown-body pre { background: #f6f8fa; border-radius: 6px; padding: 16px; margin: 0 0 16px; overflow: auto; }
+  .markdown-body pre code { background: transparent; padding: 0; font-size: 85%; }
+  .markdown-body blockquote { border-left: 4px solid #d0d7de; color: #57606a; padding: 0 1em; margin: 0 0 16px; }
+  .gh-about { width: 300px; flex: none; border: 1px solid #d0d7de; border-radius: 6px; }
+  .gh-about .hd { padding: 8px 16px; border-bottom: 1px solid #d0d7de; font-weight: 600; }
+  .gh-about .bd { padding: 16px; font-size: 13px; }
+  .gh-about .bd p { margin-bottom: 12px; color: #57606a; }
+  .gh-about .bd .row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #24292f; }
+  .gh-about .bd .row svg { fill: #57606a; flex: none; }
+  .gh-about .bd .tag { display: inline-block; border: 1px solid #d0d7de; border-radius: 20px; padding: 2px 10px; font-size: 12px; margin: 0 4px 8px 0; color: #57606a; }
+  .gh-actions { display: flex; gap: 8px; margin: 12px 0; }
+  .gh-actions .btn { border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 6px; color: #24292f; font-size: 12px; font-weight: 600; padding: 4px 12px; display: flex; align-items: center; gap: 6px; }
+  .gh-actions .btn svg { fill: #57606a; }
+  @media (max-width: 1010px) { .gh-about { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="gh-topnav">
+  <svg class="gh-mark" height="32" viewBox="0 0 16 16" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+  <input type="search" placeholder="Search or jump to…">
+  <span class="spacer"></span>
+  <a class="link" href="#">Pull requests</a>
+  <a class="link" href="#">Issues</a>
+  <a class="link" href="#">Marketplace</a>
+  <a class="btn" href="#">Sign in</a>
+</header>
+
+<div class="gh-repohead">
+  <div class="wrap">
+    <div class="gh-crumb">
+      <a class="owner" href="#">2439816947</a>
+      <span class="sep">/</span>
+      <a class="repo" href="#">DSH-Desktop</a>
+      <span class="public">Public</span>
+    </div>
+    <div class="gh-actions">
+      <span class="btn">★ Star</span>
+      <span class="btn">Fork</span>
+      <span class="btn">Code ▾</span>
+    </div>
+    <div class="gh-tabs">
+      <a class="gh-tab active" href="#">Code</a>
+      <a class="gh-tab" href="#">Issues <span class="count">0</span></a>
+      <a class="gh-tab" href="#">Pull requests <span class="count">0</span></a>
+      <a class="gh-tab" href="#">Actions</a>
+      <a class="gh-tab" href="#">Projects</a>
+      <a class="gh-tab" href="#">Wiki</a>
+      <a class="gh-tab" href="#">Security</a>
+      <a class="gh-tab" href="#">Insights</a>
+      <a class="gh-tab" href="#">Settings</a>
+    </div>
+  </div>
+</div>
+
+<div class="gh-main">
+  <div class="gh-content">
+    <div class="gh-filenav">
+      <span class="branch">
+        <svg height="16" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25z"></path></svg>
+        main
+      </span>
+      <span class="spacer"></span>
+      <span class="btn">Go to file</span>
+      <span class="btn">Add file ▾</span>
+      <span class="btn primary">Code ▾</span>
+    </div>
+
+    <div class="gh-filelist">
+      <div class="row">
+        <svg height="16" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M1.75 1.5A.25.25 0 012 1.25h11.5a.25.25 0 01.25.25v10.5a.25.25 0 01-.25.25h-11.5a.25.25 0 01-.25-.25V1.5zM2 0a1.75 1.75 0 00-1.75 1.75v10.5C.25 13.216 1.034 14 2 14h4.54c.36 0 .71-.1 1.01-.27l2.58 1.57c.9.55 2.09.15 2.37-.87l.7-2.08c.07-.23.21-.44.4-.59 1.12-.87 1.9-2.21 1.9-3.76v-8.5A1.75 1.75 0 0013.25 0H2zm5.75 4.5a.75.75 0 00-.75.75v3.47L5.53 7.47a.75.75 0 00-1.06 1.06l2.19 2.19c.29.29.77.29 1.06 0l2.19-2.19a.75.75 0 10-1.06-1.06L9.5 8.72V5.25a.75.75 0 00-.75-.75h-1z"></path></svg>
+        <span class="name">README.md</span>
+        <span class="msg">DeepSeek Harness 桌面端 — Windows 桌面端</span>
+        <span class="time">now</span>
+      </div>
+    </div>
+
+    <div class="markdown-body">
+      <h1>DeepSeek Harness 桌面端</h1>
+      <p>DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。</p>
+
+      <h2>特性</h2>
+      <ul>
+        <li><strong>中文界面</strong>：权限选择、计划模式、命令菜单、推理等级中文化；思考均为简体中文</li>
+        <li><strong>余额悬浮卡</strong>：对话区实时展示 DeepSeek 账户余额</li>
+        <li><strong>霓虹视觉</strong>：蓝紫粉渐变鲸鱼品牌，覆盖窗口、侧边栏、关于页</li>
+        <li><strong>应用内反馈</strong>：设置 → 关于 → 反馈，邮件直发</li>
+        <li><strong>本地优先</strong>：数据存于本机 <code>%APPDATA%\dsh-desktop-custom\</code>，只监听 <code>127.0.0.1</code> 随机端口</li>
+      </ul>
+
+      <h2>安装</h2>
+      <ol>
+        <li>从 <a href="https://github.com/2439816947/DSH-Desktop/releases">GitHub Releases</a> 下载 <code>DeepSeek-Harness-setup.exe</code></li>
+        <li>运行安装（Windows SmartScreen 提示时选择"仍要运行"）</li>
+        <li>首次打开后，在设置中配置模型提供方与 API Key，即可开始对话</li>
+      </ol>
+
+      <h2>构建</h2>
+      <pre><code>npm install
+npx electron-builder --win --x64 --config electron-builder.yml</code></pre>
+
+      <h2>许可</h2>
+      <p>外壳代码 MIT；DeepSeek Harness 本体 MIT。</p>
+    </div>
+  </div>
+
+  <aside class="gh-about">
+    <div class="hd">About</div>
+    <div class="bd">
+      <p>DeepSeek Harness 的 Windows 桌面端。</p>
+      <div class="row">
+        <svg height="16" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+        <span><strong>0</strong> stars</span>
+      </div>
+      <div class="row">
+        <svg height="16" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878z"></path></svg>
+        <span>Branches</span>
+      </div>
+      <div class="row">
+        <svg height="16" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a1.119 1.119 0 010 1.136c-.412.621-1.242 1.75-2.366 2.717C10.825 12.758 9.473 13.5 8 13.5c-1.473 0-2.824-.742-3.955-1.715C2.92 10.818 2.09 9.69 1.679 9.068a1.119 1.119 0 010-1.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+        <span>Releases</span>
+      </div>
+      <div class="row">
+        <svg height="16" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
+        <span>MIT license</span>
+      </div>
+      <div class="tag">desktop</div>
+      <div class="tag">windows</div>
+      <div class="tag">deepseek-harness</div>
+      <p style="margin-top:12px"><a href="#">README.md</a></p>
+    </div>
+  </aside>
+</div>
+
+</body>
+</html>
