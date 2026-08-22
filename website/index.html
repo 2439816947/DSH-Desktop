@@ -184,6 +184,46 @@
   }
   .btn.ghost:hover { border-color: var(--b); box-shadow: 0 8px 26px rgba(139, 92, 246, 0.18); }
 
+  /* AI 对话控件（终端风） */
+  .chat-box {
+    border: 1px solid var(--edge); border-radius: 10px;
+    background: rgba(255, 255, 255, 0.015);
+    padding: 12px 14px; margin-top: 6px;
+  }
+  .chat-log {
+    max-height: 320px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 4px 2px 8px;
+  }
+  .chat-line { white-space: pre-wrap; word-break: break-word; font-size: 13.5px; line-height: 1.7; }
+  .chat-line.system { color: var(--faint); }
+  .chat-line.user { color: var(--b); }
+  .chat-line.assistant { color: var(--ink); }
+  .chat-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .chat-prompt { color: var(--b); font-size: 13px; flex: none; }
+  .chat-key, .chat-input {
+    flex: 1; min-width: 0;
+    font-family: var(--mono); font-size: 13.5px;
+    color: var(--ink); background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--edge); border-radius: 8px;
+    padding: 8px 12px; outline: none;
+    transition: border-color 0.15s;
+  }
+  .chat-key:focus, .chat-input:focus { border-color: var(--b); }
+  .chat-key:disabled, .chat-input:disabled { opacity: 0.45; }
+  .chat-btn {
+    flex: none; cursor: pointer;
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    color: var(--ink); background: var(--panel);
+    border: 1px solid var(--edge); border-radius: 8px;
+    padding: 8px 14px; transition: border-color 0.15s, color 0.15s;
+  }
+  .chat-btn:hover:not(:disabled) { border-color: var(--b); color: var(--b); }
+  .chat-btn:disabled { opacity: 0.45; cursor: default; }
+  .chat-btn.ghost { color: var(--dim); }
+  .chat-btn.ghost:hover:not(:disabled) { color: var(--c); border-color: var(--c); }
+  .chat-keymask { color: var(--dim); font-size: 13px; }
+
   .rule { border: none; border-top: 1px dashed var(--edge); margin: 26px 0 22px; }
 
   .feature { padding: 2px 0; }
@@ -303,6 +343,33 @@
 
     <hr class="rule stream">
 
+    <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh --chat</span></div>
+    <div class="line ok stream"><span class="tag">[ok]</span> DeepSeek 官方 AI 对话 · 直连 api.deepseek.com（Key 仅存于本浏览器）</div>
+    <div class="line chat-box stream" id="chat-box">
+      <div class="chat-log" id="chat-log">
+        <div class="chat-line system"># 填写你的 DeepSeek API Key 开始对话；Key 直接发送给 DeepSeek 官方接口，本页不保存、不中转。</div>
+      </div>
+      <div class="chat-row" id="chat-keyrow">
+        <span class="chat-prompt">api-key&gt;</span>
+        <input class="chat-key" id="chat-key" type="password" placeholder="sk-…" autocomplete="off">
+        <button class="chat-btn" id="chat-key-save" type="button">保存</button>
+      </div>
+      <div class="chat-row" id="chat-keyinfo" hidden>
+        <span class="chat-prompt">api-key&gt;</span>
+        <span class="chat-keymask" id="chat-keymask"></span>
+        <button class="chat-btn" id="chat-key-change" type="button">更换</button>
+        <button class="chat-btn ghost" id="chat-clear" type="button">清空对话</button>
+      </div>
+      <div class="chat-row">
+        <span class="chat-prompt">you&gt;</span>
+        <input class="chat-input" id="chat-input" type="text" placeholder="问点什么…（Enter 发送）" disabled>
+        <button class="chat-btn" id="chat-send" type="button" disabled>发送</button>
+      </div>
+    </div>
+    <div class="line out stream"># 获取 Key：platform.deepseek.com → API Keys；模型 deepseek-chat</div>
+
+    <hr class="rule stream">
+
     <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh install --windows</span></div>
     <div class="line ok stream"><span class="tag">[ok]</span> 安装包已就绪 · DeepSeek-Harness-setup.exe · 151.4 MB</div>
 
@@ -350,6 +417,86 @@
     const kick = () => { if (raf === 0) raf = window.requestAnimationFrame(tick); };
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mousemove", kick, { passive: true });
+  })();
+
+  // AI 对话控件：直连 DeepSeek 官方 API（Key 存本浏览器 localStorage）
+  (() => {
+    const KEY_STORE = "dsh-chat-key";
+    const MODEL = "deepseek-chat";
+    const $ = (id) => document.getElementById(id);
+    const box = $("chat-box");
+    if (box === null) return;
+    const log = $("chat-log");
+    const keyRow = $("chat-keyrow"), keyInfo = $("chat-keyinfo");
+    const keyInput = $("chat-key"), keySave = $("chat-key-save"), keyMask = $("chat-keymask");
+    const keyChange = $("chat-key-change"), chatClear = $("chat-clear");
+    const input = $("chat-input"), sendBtn = $("chat-send");
+    let key = (() => { try { return localStorage.getItem(KEY_STORE) || ""; } catch { return ""; } })();
+    let messages = [];
+    const maskKey = (k) => k.length > 8 ? k.slice(0, 4) + "…" + k.slice(-4) : "已配置";
+    function appendLine(role, text) {
+      const d = document.createElement("div");
+      d.className = "chat-line " + role;
+      d.textContent = (role === "user" ? "❯ " : role === "assistant" ? "▸ " : "# ") + text;
+      log.appendChild(d);
+      log.scrollTop = log.scrollHeight;
+      return d;
+    }
+    function applyKeyUI() {
+      const has = key.length > 0;
+      keyRow.hidden = has;
+      keyInfo.hidden = !has;
+      input.disabled = !has;
+      sendBtn.disabled = !has;
+      if (has) keyMask.textContent = "已配置（" + maskKey(key) + "）";
+    }
+    keySave.addEventListener("click", () => {
+      key = keyInput.value.trim();
+      if (!key) return;
+      try { localStorage.setItem(KEY_STORE, key); } catch {}
+      keyInput.value = "";
+      applyKeyUI();
+    });
+    keyChange.addEventListener("click", () => {
+      key = "";
+      try { localStorage.removeItem(KEY_STORE); } catch {}
+      applyKeyUI();
+    });
+    chatClear.addEventListener("click", () => {
+      messages = [];
+      log.innerHTML = "";
+      appendLine("system", "对话已清空。输入你的问题继续。");
+    });
+    async function send() {
+      const text = input.value.trim();
+      if (!text || !key) return;
+      input.value = "";
+      messages.push({ role: "user", content: text });
+      appendLine("user", text);
+      const busy = appendLine("assistant", "… 思考中");
+      try {
+        const resp = await fetch("https://api.deepseek.com/chat/completions", {
+          method: "POST",
+          headers: { "content-type": "application/json", authorization: "Bearer " + key },
+          body: JSON.stringify({ model: MODEL, messages, stream: false })
+        });
+        if (!resp.ok) {
+          let msg = "请求失败（HTTP " + resp.status + "）";
+          try { const j = await resp.json(); if (j.error && j.error.message) msg = j.error.message; } catch {}
+          busy.textContent = "# " + msg;
+          return;
+        }
+        const j = await resp.json();
+        const reply = j.choices && j.choices[0] && j.choices[0].message ? j.choices[0].message.content : "（空回复）";
+        busy.textContent = "▸ " + reply;
+        messages.push({ role: "assistant", content: reply });
+      } catch (e) {
+        busy.textContent = "# 网络错误：" + (e.message || e);
+      }
+    }
+    input.addEventListener("keydown", (ev) => { if (ev.key === "Enter") send(); });
+    sendBtn.addEventListener("click", send);
+    applyKeyUI();
   })();
 
   // 滚动效果：霓虹进度条 + 背景网格视差
