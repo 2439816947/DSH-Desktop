@@ -183,6 +183,16 @@
     border-color: var(--edge); box-shadow: none;
   }
   .btn.ghost:hover { border-color: var(--b); box-shadow: 0 8px 26px rgba(139, 92, 246, 0.18); }
+  .btn-neon {
+    color: var(--ink);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--panel), var(--panel)) padding-box,
+      linear-gradient(92deg, var(--a), var(--b) 55%, var(--c)) border-box;
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.32), inset 0 0 12px rgba(139, 92, 246, 0.06);
+    transition: box-shadow 0.18s, transform 0.18s;
+  }
+  .btn-neon:hover { transform: translateY(-2px); box-shadow: 0 0 26px rgba(139, 92, 246, 0.55), inset 0 0 16px rgba(139, 92, 246, 0.1); }
 
   /* AI 对话控件（终端风） */
   .chat-box {
@@ -319,7 +329,7 @@
       <div class="meta">build v0.5.8 · windows-x64 · 数据本地持久化</div>
       <div class="actions">
         <a class="btn" id="btn-download" href="https://github.com/2439816947/DSH-Desktop/releases/download/dsh-desktop/DeepSeek-Harness-setup.exe"><span class="glyph">⬇</span> 下载 Windows 版</a>
-        <a class="btn ghost" href="https://api.chi-yu.top/" target="_blank" rel="noopener">没有 API Key？<span class="glyph"> ↗</span></a>
+        <a class="btn btn-neon" href="https://api.chi-yu.top/" target="_blank" rel="noopener">没有 API Key？<span class="glyph"> ↗</span></a>
         <a class="btn ghost" href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">查看源码 <span class="glyph">↗</span></a>
       </div>
     </div>
