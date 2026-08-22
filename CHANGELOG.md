@@ -10,10 +10,54 @@
 | **未上架（未单独说明）的普通更新** | 补丁 +0.001 | 统一递增，**包含**此前规定的 +0.01（小型修复）与 +0.1（大型更新）两种粒度 |
 
 - **实时更新**：每次变更后立即同步 `resources/app/package.json` 的 `version` 与"关于"页显示的版本号
+- **展示网页同步**（自 0.5.4 起）：每次执行版本更新时，`website/index.html`（及仓库预览页）的**版本徽章 / 下载信息同步更新**（不计入桌面版版本号、不 bump 独立版本）
+- **上传仓库同步宣传网页**（自 0.5.6 起强化）：**每次上传 GitHub 仓库（发布 Release / 推送含版本变化的提交）时，必须同步更新宣传网页 `website/index.html` 的相关信息**（版本徽章、下载链接、发布说明、特性描述等），随仓库一起推送
 - **宣传网站独立管理**（自 0.5.3 起）：`website/` 宣传页的更新**不计入桌面版版本号**，不 bump 版本、不记录本文件；桌面版版本号只随应用本身变更
-- 官方版（`DSH Desktop 0.4.x`）版本号独立管理，不随复刻版规则变动
+- **社区版（DSH Desktop 官方版）**版本号独立管理，不随"我们的版本（池鱼版）"规则变动
+
+### 产品称呼约定（自 0.5.4 起）
+
+- **当前环境（原"官方版"DSH Desktop 0.4.x）** → 称 **社区版**
+- **复刻版** → 称 **我们的版本 / 池鱼版**（可随意更换称呼）
+- 社区版 = DeepSeek 官方发布的桌面版（dataelement/dsh-desktop，GitHub Releases `v0.4.x`）；我们的版本 = 基于其定制（中文原生 / 霓虹视觉 / 悬浮卡 / 反馈直发 / 自动更新检测）
 
 ---
+
+## 0.5.6（未上架 · 普通更新）
+
+- **dsh 依赖树升级至官方最新 0.1.1-rc.2**（`deepseek-ai/deepseek-harness` 的 `dsh-v0.1.1-rc.2`）：全部 197 个 `@deepseek-ai/*` 包从 0.1.0-rc.8 升级（脚本 `scripts/upgrade-dsh.mjs`，npm 全树下载 + 备份回滚 + 补丁重放）
+- **余额查询补丁（rc.2 适配）**：官方 rc.2 无 `llm.balance` → 补丁为 host-apiproxy 加回 balance handler（5 处：handler/端点表/值表/schema/client）+ client-connection 加回 `llmBalanceValueSchema`（2 处）——已实测余额正常（CNY 25.95）
+- **presets 保留 + 中文规则**：rc.2 npm 含 `config/agent-presets`；中文思考规则重放至 identity/4 预设/部署 persona；**修复 minimal 补丁重复 `complete: true`**（rc.2 原版已含该键）
+- **自动更新主检测改为「我们的版本」**：`startUpdateManager` 用 electron-updater 检测我们自己的 GitHub Release（`DSH-Desktop`，源配置 `update-source.json` / 默认 `releases/download/dsh-desktop/`）；官方依赖树（dsh rc.2）与社区版版本仅作顺带信息展示，不再自动安装
+- **展示网页同步**：`website/index.html` 版本标记 v0.5.3 → v0.5.6
+- **UI 大块定制全部重放（升级副作用已消除）**：官方 rc.2 覆盖的定制已逐一移植回并**固化进补丁体系**（`scripts/custom-assets/patches.json`，8 个包整文件替换：old=官方 rc.2 原版全文 → new=定制版）——`settings-general`（关于页/反馈）、sidebar（霓虹品牌，顺应 rc.2 的 `sidebar.brand.*` slot 机制）、plan（常驻开关）、commands（命令中文）、model-selection（推理中文）、settings-plugins（客制插件页）、brand-official（见下）、permission-presets（见下）
+- **官方品牌插件霓虹化（rc.2 新机制覆盖修复）**：rc.2 新增 `dsh-client-ui-brand-official` 包，把 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark` 三个 slot 注入官方灰色品牌，覆盖了我们所有霓虹定制 → 重写该包注册**霓虹品牌**：左上角 logo（霓虹鲸鱼 PNG，light/dark 双主题）、品牌名（`DeepSeek Harness` 霓虹渐变字，`includeMark:false` + 渐变 fill 覆盖）、hero "The Future" 前的鱼（霓虹渐变 fill）——三个位置全部恢复霓虹
+- **品牌 PNG 资源固化**：`dsh-desktop-logo-{light,dark}.png` + `logo.png` 存入 `scripts/custom-assets/`，`custom-patches.mjs` 升级重放时自动复制回 `dsh-web-frontend/dist`（官方覆盖删除后不再丢失）
+- **修复与社区版端口冲突导致启动失败**：复刻版与社区版（DSH Desktop 0.4.3）移动设备桥同用固定端口 43127 → 复刻版改为 **43129**（`out/main/index.js`，社区版不受影响、无需重启）
+- **恢复左下角"连接手机"按钮**：rc.2 官方删除了 sidebar 的 `data-dsh-sidebar-root` / `data-dsh-sidebar-wide` / `data-dsh-sidebar-settings` 三个 data 属性，导致 preload（`out/preload/index.cjs`）的 `mountMobileButton()` 找不到挂载点（`[data-dsh-sidebar-settings]`）→ 按钮不渲染；已在 sidebar 定制版加回三处属性（按钮 label "连接手机"/"管理手机连接"，走 `mobile:open-pairing` IPC）
+- **修复 package.json description 乱码**（此前写入时被错误编码为 `妗岄潰鐗?`）→ 恢复 `A cross-platform desktop shell for Dsh 桌面版`
+- **反馈收件人隐藏邮箱**：收件人字段展示 **"Chi_Yu 池鱼."**（SMTP 发送目标不变，仍发往原邮箱）
+- **权限系统全中文（rc.2 回归修复）**：rc.2 把权限预设标签改回英文 title case（`Read Only / Workspace Write / Full access`）→ 恢复字典化映射（`仅可查看 / 可写入工作区 / 完全权限`）：
+  - `dsh-client-ui-permission-presets`：设置里权限行（"权限"/"选择新会话的默认权限模式"）+ 选项菜单 + Full access 确认对话框全中文
+  - `dsh-client-ui-conversation`：composer 权限选择器（模式行显示"可写入工作区"）+ 确认对话框（"确认启用完全权限？/我已了解风险，并愿意继续/取消/启用完全权限"）
+  - host 侧 `dsh-permission-presets`：预设描述、`/permission` 命令描述与输出、custom 状态描述中文
+  - `dsh-client-connection`：fixture 预设表描述中文
+- **下次"官方依赖树更新"= 一键流程**：`scripts/upgrade-dsh.mjs`（npm 全树升级 + 备份回滚）→ 自动跑 `custom-patches.mjs`（字符串补丁：中文思考/hero/balance/presets/权限描述 + patches.json 整文件替换：8 包 UI 定制 + 品牌 PNG 资源复制）
+
+## 0.5.5（未上架 · 普通更新）
+
+- **反馈收件人展示隐藏邮箱**：反馈浮窗"收件人"字段不再显示 `1096963392@qq.com`，改为展示 **"Chi_Yu 池鱼."**；SMTP 发送目标不变（仍发往原邮箱，仅 UI 隐藏）
+
+## 0.5.4（未上架 · 普通更新）
+
+- **自动更新检测（检测 DeepSeek 官方版本，有新版自动安装）**：
+  - 主进程 `startUpdateManager` 始终启用（不再受 `update-source.json` 门控）：启动 15s 后 + 每 6 小时 + 系统恢复时自动检测
+  - **主检测**：社区版（DeepSeek 官方桌面版 dataelement/dsh-desktop）GitHub `releases/latest`（tag `v0.4.x`，对应内置 dsh 版本）；**顺带检测** `@deepseek-ai/dsh` npm 官方最新版
+  - **有新版自动安装**：下载官方 Windows 安装包 → 静默解压到临时目录 → 提取 `@deepseek-ai` 依赖树（含 `dsh/config/agent-presets`，npm 包不含 presets，故必须从官方安装包提取）替换本地 → **重放定制补丁**（`scripts/custom-patches.mjs`：中文思考 identity/presets、部署层 persona、hero 霓虹、host-apiproxy 仅适配DeepSeek）→ 备份回滚（失败恢复 `.bak-upgrade`）→ 自动重启 harness
+  - 已升级状态记录于 `%APPDATA%\dsh-desktop-custom\dsh-upgrade-state.json`（communityTag），避免重复安装
+  - 关于页检查更新文案同步（"已是最新版本（dsh x）" / "发现新版 {v}，正在自动安装"）
+- **产品称呼约定**：当前环境（原"官方版"）称 **社区版**；复刻版称 **我们的版本 / 池鱼版**（见顶部约定）
+- 说明：UI 大块定制（关于页/反馈/品牌/客制插件页等）的自动重放补丁暂未全覆盖，升级后如个别定制缺失请手动重放或告知补全
 
 ## 0.5.3（小型修复）
 
