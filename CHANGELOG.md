@@ -24,6 +24,10 @@
 
 ---
 
+## 0.5.8（✅ 已上架 · 2026-08-22 发布 GitHub Release）
+
+- **修复反馈 SMTP 永久"发送中"**：另一台设备网络不通时，反馈发送无超时导致永久挂起 → 主进程 `desktop:send-feedback` 增加 SMTP 超时（`connectionTimeout`/`greetingTimeout`/`socketTimeout` + `sendMail` timeout，15-30s）——网络正常照常秒发；网络不通时超时报"发送失败"而非永久"发送中"；需确保设备能访问 `smtp.qq.com:465`（防火墙/运营商放行）
+
 ## 0.5.7（✅ 已上架 · 2026-08-22 发布 GitHub Release）
 
 - **新增内置预设「超强思考」**（id `super-thinking`）：深度思考增强模式——慢思考、多步推理、先理解再动手、穷举方案与权衡、自我校验、任务锚点收敛，适合复杂推理与分析任务；能力面与 standard 一致（完整工具/sections）；参考 dsh-routing-suite 的深度思考思路（不引入第三方注入器，纯内置预设）；升级自动重放（custom-assets 固化）
