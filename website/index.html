@@ -161,11 +161,17 @@
     animation: float 6s ease-in-out infinite;
   }
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  .hero-label {
-    font-size: 18px; font-weight: 600; letter-spacing: 0.3em;
-    text-align: left; margin: 0 0 6px;
+    .hero-label {
+    font-size: 12.5px; font-weight: 500;
+    text-align: left; margin: 2px 0 4px;
     background: linear-gradient(92deg, var(--a), var(--b) 52%, var(--c));
     -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-label .pulse {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--c); margin-right: 8px; vertical-align: baseline;
+    box-shadow: 0 0 8px rgba(255, 78, 205, 0.9);
+    animation: pulse 2.2s ease-in-out infinite;
   }
   .hero .brand {
     font-size: 40px; font-weight: 700; letter-spacing: 0.01em; line-height: 1.25;
@@ -339,7 +345,7 @@
   <div class="term-body" id="boot">
 
     <div class="line prompt"><span class="dollar">$</span> <span class="cmd">dsh --about</span></div>
-    <div class="line hero-label stream">THE FUTURE</div>
+    <div class="line hero-label stream"><span class="pulse"></span>THE FUTURE</div>
 
     <div class="line hero stream">
       <div class="eyebrow"><span class="pulse"></span>基于开源 DSH Desktop</div>
