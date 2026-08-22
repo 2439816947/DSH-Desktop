@@ -28,6 +28,14 @@
 
 - **修复反馈 SMTP 永久"发送中"**：另一台设备网络不通时，反馈发送无超时导致永久挂起 → 主进程 `desktop:send-feedback` 增加 SMTP 超时（`connectionTimeout`/`greetingTimeout`/`socketTimeout` + `sendMail` timeout，15-30s）——网络正常照常秒发；网络不通时超时报"发送失败"而非永久"发送中"；需确保设备能访问 `smtp.qq.com:465`（防火墙/运营商放行）
 
+## 0.5.8（✅ 已上架 · 2026-08-22 发布 GitHub Release）
+
+- **国内网络加速（解决访问 GitHub 慢/断流，第二台电脑实测）**：
+  - **更新检查多源 fallback**：主源（GitHub 直连）失败自动切换国内加速镜像（`ghproxy.net` / `gh-proxy.com`）重试——`update-source.json` 的 `mirrors` 数组可自行增删
+  - **更新卡片说明**（`fetchOwnReleaseNotes`）同样加镜像 fallback（api.github.com 直连慢时走镜像）
+  - **插件市场（dshmarket）npm 加速**：harness 启动注入 `npm_config_registry=https://registry.npmmirror.com`（pnpm 安装走国内镜像；极新包镜像暂缺时用户可临时移除该环境变量）
+- **发布方式**：新建 Release `v0.5.8`（tag `v0.5.8`，body 简述）+ 更新 `dsh-desktop` 自动更新通道
+
 ## 0.5.7（✅ 已上架 · 2026-08-22 发布 GitHub Release）
 
 - **新增内置预设「超强思考」**（id `super-thinking`）：深度思考增强模式——慢思考、多步推理、先理解再动手、穷举方案与权衡、自我校验、任务锚点收敛，适合复杂推理与分析任务；能力面与 standard 一致（完整工具/sections）；参考 dsh-routing-suite 的深度思考思路（不引入第三方注入器，纯内置预设）；升级自动重放（custom-assets 固化）
