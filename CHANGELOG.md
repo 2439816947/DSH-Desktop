@@ -24,6 +24,12 @@
 
 ---
 
+## 0.5.7（✅ 已上架 · 2026-08-22 发布 GitHub Release）
+
+- **新增内置预设「超强思考」**（id `super-thinking`）：深度思考增强模式——慢思考、多步推理、先理解再动手、穷举方案与权衡、自我校验、任务锚点收敛，适合复杂推理与分析任务；能力面与 standard 一致（完整工具/sections）；参考 dsh-routing-suite 的深度思考思路（不引入第三方注入器，纯内置预设）；升级自动重放（custom-assets 固化）
+- **修复现有预设中文规则重复 bug**：`standard`/`code`/`cordis` 三个预设 persona 里中文硬规则被历史叠加重复 10 次 → 统一为 1 次（`minimal` 本就 1 次）
+- **发布方式**（新约定）：新建 Release `v0.5.7`（tag `v0.5.7`，body 简述本次更新）保留历史版本；`dsh-desktop` tag 作为自动更新最新版通道同步更新资产
+
 ## 0.5.6（✅ 已上架 · 2026-08-22 发布 GitHub Release）
 
 - **上架发布**：GitHub Release tag `dsh-desktop` 更新为 v0.5.6，资产 `DeepSeek-Harness-setup.exe`（0.5.6，152 MB）+ **`latest.yml`（本次补齐，自动更新生效）**；Release body 已写明版本与特性；宣传页已同步 v0.5.6（并修复此前同步造成的编码乱码）
