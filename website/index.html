@@ -223,6 +223,27 @@
   .chat-btn.ghost { color: var(--dim); }
   .chat-btn.ghost:hover:not(:disabled) { color: var(--c); border-color: var(--c); }
   .chat-keymask { color: var(--dim); font-size: 13px; }
+  .chat-open { margin-top: 16px; }
+  .chat-open-btn { padding: 15px 32px; font-size: 15.5px; }
+  .chat-details {
+    margin-top: 10px;
+    border: 1px solid var(--edge); border-radius: 10px;
+    background: rgba(255, 255, 255, 0.015);
+    padding: 2px 12px;
+  }
+  .chat-details summary {
+    cursor: pointer; color: var(--dim); font-size: 13px;
+    padding: 9px 2px; list-style: none; user-select: none;
+    transition: color 0.15s;
+  }
+  .chat-details summary::-webkit-details-marker { display: none; }
+  .chat-details summary::before { content: "▸ "; color: var(--b); display: inline-block; transition: transform 0.15s; }
+  .chat-details[open] summary::before { transform: rotate(90deg); }
+  .chat-details summary:hover { color: var(--b); }
+  .chat-details .chat-box {
+    border: none; border-top: 1px dashed var(--edge);
+    border-radius: 0; padding: 10px 2px 4px; margin-top: 0;
+  }
 
   .rule { border: none; border-top: 1px dashed var(--edge); margin: 26px 0 22px; }
 
@@ -344,29 +365,35 @@
     <hr class="rule stream">
 
     <div class="line prompt stream"><span class="dollar">$</span> <span class="cmd">dsh --chat</span></div>
-    <div class="line ok stream"><span class="tag">[ok]</span> DeepSeek 官方 AI 对话 · 免 Key 直接打开官方对话页，或填 Key 用内嵌对话</div>
-    <div class="line out stream"># 免 Key：<a class="link" href="https://chat.deepseek.com/" target="_blank" rel="noopener">打开官方对话页 chat.deepseek.com ↗</a>（新窗口，无需任何配置）</div>
-    <div class="line chat-box stream" id="chat-box">
-      <div class="chat-log" id="chat-log">
-        <div class="chat-line system"># 填写你的 DeepSeek API Key 开始对话；Key 直接发送给 DeepSeek 官方接口，本页不保存、不中转。</div>
-      </div>
-      <div class="chat-row" id="chat-keyrow">
-        <span class="chat-prompt">api-key&gt;</span>
-        <input class="chat-key" id="chat-key" type="password" placeholder="sk-…" autocomplete="off">
-        <button class="chat-btn" id="chat-key-save" type="button">保存</button>
-      </div>
-      <div class="chat-row" id="chat-keyinfo" hidden>
-        <span class="chat-prompt">api-key&gt;</span>
-        <span class="chat-keymask" id="chat-keymask"></span>
-        <button class="chat-btn" id="chat-key-change" type="button">更换</button>
-        <button class="chat-btn ghost" id="chat-clear" type="button">清空对话</button>
-      </div>
-      <div class="chat-row">
-        <span class="chat-prompt">you&gt;</span>
-        <input class="chat-input" id="chat-input" type="text" placeholder="问点什么…（Enter 发送）" disabled>
-        <button class="chat-btn" id="chat-send" type="button" disabled>发送</button>
-      </div>
+    <div class="line ok stream"><span class="tag">[ok]</span> DeepSeek 官方 AI 对话 · 点开即聊，无需任何配置</div>
+    <div class="line chat-open stream">
+      <a class="btn chat-open-btn" href="https://chat.deepseek.com/" target="_blank" rel="noopener"><span class="glyph">💬</span> 打开官方对话，立即开聊</a>
     </div>
+    <div class="line out stream"># 免 Key · 新窗口打开 chat.deepseek.com；需要页内对话可展开下方控件（需 API Key）</div>
+    <details class="chat-details stream">
+      <summary class="chat-summary">页内对话控件（需 API Key）</summary>
+      <div class="line chat-box" id="chat-box">
+        <div class="chat-log" id="chat-log">
+          <div class="chat-line system"># 填写你的 DeepSeek API Key 开始对话；Key 直接发送给 DeepSeek 官方接口，本页不保存、不中转。</div>
+        </div>
+        <div class="chat-row" id="chat-keyrow">
+          <span class="chat-prompt">api-key&gt;</span>
+          <input class="chat-key" id="chat-key" type="password" placeholder="sk-…" autocomplete="off">
+          <button class="chat-btn" id="chat-key-save" type="button">保存</button>
+        </div>
+        <div class="chat-row" id="chat-keyinfo" hidden>
+          <span class="chat-prompt">api-key&gt;</span>
+          <span class="chat-keymask" id="chat-keymask"></span>
+          <button class="chat-btn" id="chat-key-change" type="button">更换</button>
+          <button class="chat-btn ghost" id="chat-clear" type="button">清空对话</button>
+        </div>
+        <div class="chat-row">
+          <span class="chat-prompt">you&gt;</span>
+          <input class="chat-input" id="chat-input" type="text" placeholder="问点什么…（Enter 发送）" disabled>
+          <button class="chat-btn" id="chat-send" type="button" disabled>发送</button>
+        </div>
+      </div>
+    </details>
     <div class="line out stream"># 获取 Key：platform.deepseek.com → API Keys；模型 deepseek-chat（按量计费）</div>
 
     <hr class="rule stream">
