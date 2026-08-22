@@ -36,6 +36,7 @@
 - **品牌 PNG 资源固化**：`dsh-desktop-logo-{light,dark}.png` + `logo.png` 存入 `scripts/custom-assets/`，`custom-patches.mjs` 升级重放时自动复制回 `dsh-web-frontend/dist`（官方覆盖删除后不再丢失）
 - **修复与社区版端口冲突导致启动失败**：复刻版与社区版（DSH Desktop 0.4.3）移动设备桥同用固定端口 43127 → 复刻版改为 **43129**（`out/main/index.js`，社区版不受影响、无需重启）
 - **恢复左下角"连接手机"按钮**：rc.2 官方删除了 sidebar 的 `data-dsh-sidebar-root` / `data-dsh-sidebar-wide` / `data-dsh-sidebar-settings` 三个 data 属性，导致 preload（`out/preload/index.cjs`）的 `mountMobileButton()` 找不到挂载点（`[data-dsh-sidebar-settings]`）→ 按钮不渲染；已在 sidebar 定制版加回三处属性（按钮 label "连接手机"/"管理手机连接"，走 `mobile:open-pairing` IPC）
+- **修复新电脑首次启动崩溃（`Harness stopped unexpectedly ... plugin tree failed to load: cordis:include`）**：根因 = app 层插件包（`dsh-float-card`、`dsh-desktop-market-installer`）不在 dsh 依赖闭包，`healProfilesModuleFallback` 不为它们在 `$DSH_HOME/profiles/node_modules` 建 junction → 全新电脑（无旧 profile 数据）boot 时 bare 包解析失败。修复：`@deepseek-ai/dsh/package.json` 的 `dependencies` 加入 `dsh-float-card@0.1.0` + `dsh-desktop-market-installer@0.1.0`（heal 闭包随之包含 → junction 建立）；已固化进 `custom-patches.mjs`，fresh 环境验证 BOOT OK；**已重新打包并覆盖发布**
 - **修复 package.json description 乱码**（此前写入时被错误编码为 `妗岄潰鐗?`）→ 恢复 `A cross-platform desktop shell for Dsh 桌面版`
 - **反馈收件人隐藏邮箱**：收件人字段展示 **"Chi_Yu 池鱼."**（SMTP 发送目标不变，仍发往原邮箱）
 - **权限系统全中文（rc.2 回归修复）**：rc.2 把权限预设标签改回英文 title case（`Read Only / Workspace Write / Full access`）→ 恢复字典化映射（`仅可查看 / 可写入工作区 / 完全权限`）：
