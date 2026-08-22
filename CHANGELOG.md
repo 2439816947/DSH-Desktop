@@ -23,8 +23,9 @@
 
 ---
 
-## 0.5.6（未上架 · 普通更新）
+## 0.5.6（✅ 已上架 · 2026-08-22 发布 GitHub Release）
 
+- **上架发布**：GitHub Release tag `dsh-desktop` 更新为 v0.5.6，资产 `DeepSeek-Harness-setup.exe`（0.5.6，152 MB）+ **`latest.yml`（本次补齐，自动更新生效）**；Release body 已写明版本与特性；宣传页已同步 v0.5.6（并修复此前同步造成的编码乱码）
 - **dsh 依赖树升级至官方最新 0.1.1-rc.2**（`deepseek-ai/deepseek-harness` 的 `dsh-v0.1.1-rc.2`）：全部 197 个 `@deepseek-ai/*` 包从 0.1.0-rc.8 升级（脚本 `scripts/upgrade-dsh.mjs`，npm 全树下载 + 备份回滚 + 补丁重放）
 - **余额查询补丁（rc.2 适配）**：官方 rc.2 无 `llm.balance` → 补丁为 host-apiproxy 加回 balance handler（5 处：handler/端点表/值表/schema/client）+ client-connection 加回 `llmBalanceValueSchema`（2 处）——已实测余额正常（CNY 25.95）
 - **presets 保留 + 中文规则**：rc.2 npm 含 `config/agent-presets`；中文思考规则重放至 identity/4 预设/部署 persona；**修复 minimal 补丁重复 `complete: true`**（rc.2 原版已含该键）
