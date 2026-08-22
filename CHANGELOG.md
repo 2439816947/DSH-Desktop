@@ -29,7 +29,12 @@
 - **dsh 依赖树升级至官方最新 0.1.1-rc.2**（`deepseek-ai/deepseek-harness` 的 `dsh-v0.1.1-rc.2`）：全部 197 个 `@deepseek-ai/*` 包从 0.1.0-rc.8 升级（脚本 `scripts/upgrade-dsh.mjs`，npm 全树下载 + 备份回滚 + 补丁重放）
 - **余额查询补丁（rc.2 适配）**：官方 rc.2 无 `llm.balance` → 补丁为 host-apiproxy 加回 balance handler（5 处：handler/端点表/值表/schema/client）+ client-connection 加回 `llmBalanceValueSchema`（2 处）——已实测余额正常（CNY 25.95）
 - **presets 保留 + 中文规则**：rc.2 npm 含 `config/agent-presets`；中文思考规则重放至 identity/4 预设/部署 persona；**修复 minimal 补丁重复 `complete: true`**（rc.2 原版已含该键）
-- **自动更新主检测改为「我们的版本」**：`startUpdateManager` 用 electron-updater 检测我们自己的 GitHub Release（`DSH-Desktop`，源配置 `update-source.json` / 默认 `releases/download/dsh-desktop/`）；官方依赖树（dsh rc.2）与社区版版本仅作顺带信息展示，不再自动安装
+- **更新机制重构（最终形态，替换旧"自动更新"）**：
+  - **切断旧更新源**：`app-update.yml`（electron-builder `publish` 生成）指向**我们构建的版本**的 GitHub Release（`generic` + `releases/download/dsh-desktop/`）；`checkForUpdates` 只走 electron-updater，**不再检测** `@deepseek-ai/dsh` npm 与社区版（dataelement/dsh-desktop）——旧源彻底断开
+  - **自动更新关闭**：启动/定时/系统恢复**不再自动检测**，完全由「设置 → 关于 → 检查更新」按钮手动触发
+  - **更新卡片**：检测到新版时关于页显示卡片（**版本号 + Release 简化说明 + 下载进度条**），点击「更新」按钮后自主下载（`updates:download` IPC → `autoUpdater.downloadUpdate()`），下载完成提示"重启应用后自动安装"（`autoInstallOnAppQuit`）
+  - **发布约定**：每次上架，GitHub Release **新建版本变更**，body 用**简化版当前版本更新信息**（已重写 v0.5.6 body）
+- **修复余额悬浮卡未生效**：补丁漏了 client-connection 的 `api.llm.balance` 客户端方法（只有 schema/端点表）→ 浮卡 `TypeError: api.llm.balance is not a function` → 已补（第 4 处连接补丁）并固化，实测余额 CNY 52.53 正常显示
 - **展示网页同步**：`website/index.html` 版本标记 v0.5.3 → v0.5.6
 - **UI 大块定制全部重放（升级副作用已消除）**：官方 rc.2 覆盖的定制已逐一移植回并**固化进补丁体系**（`scripts/custom-assets/patches.json`，8 个包整文件替换：old=官方 rc.2 原版全文 → new=定制版）——`settings-general`（关于页/反馈）、sidebar（霓虹品牌，顺应 rc.2 的 `sidebar.brand.*` slot 机制）、plan（常驻开关）、commands（命令中文）、model-selection（推理中文）、settings-plugins（客制插件页）、brand-official（见下）、permission-presets（见下）
 - **官方品牌插件霓虹化（rc.2 新机制覆盖修复）**：rc.2 新增 `dsh-client-ui-brand-official` 包，把 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark` 三个 slot 注入官方灰色品牌，覆盖了我们所有霓虹定制 → 重写该包注册**霓虹品牌**：左上角 logo（霓虹鲸鱼 PNG，light/dark 双主题）、品牌名（`DeepSeek Harness` 霓虹渐变字，`includeMark:false` + 渐变 fill 覆盖）、hero "The Future" 前的鱼（霓虹渐变 fill）——三个位置全部恢复霓虹
