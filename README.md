@@ -9,7 +9,7 @@ DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。
 - **霓虹视觉**：蓝紫粉渐变鲸鱼品牌，覆盖窗口、侧边栏、关于页
 - **应用内反馈**：设置 → 关于 → 反馈，邮件直发
 - **本地优先**：数据存于本机 `%APPDATA%\dsh-desktop-custom\`，只监听 `127.0.0.1` 随机端口
-
+- **手机连接**：双端对话可互通，离开电脑手机发送工作。
 ## 安装
 
 1. 从 [GitHub Releases](https://github.com/2439816947/DSH-Desktop/releases) 下载 `DeepSeek-Harness-setup.exe`
