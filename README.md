@@ -1,7 +1,7 @@
 # DeepSeek Harness 桌面端
 
-DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。
-DeepSeek Harness 的 Windows 桌面端网站访问即可查看详情：https://dsh-desktop.cn/
+DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。                                                                                                                                  DeepSeek Harness 的 Windows 桌面端网站访问即可查看详情：https://dsh-desktop.cn/
+
 ## 特性
 
 - **中文界面**：权限选择、计划模式、命令菜单、推理等级中文化；思考均为简体中文
