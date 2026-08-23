@@ -1,0 +1,21 @@
+name: Deploy Site to Server
+
+on:
+  push:
+    branches: [main]
+    paths: ['index.html']
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy index.html to server
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null index.html ubuntu@106.55.94.63:/tmp/site-index.html
+          ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@106.55.94.63 "sudo cp /tmp/site-index.html /var/www/dsh-site/index.html && echo DEPLOYED_OK"
