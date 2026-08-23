@@ -1,6 +1,6 @@
 # DeepSeek Harness 桌面端
 
-DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。                                                                                                                                  DeepSeek Harness 的 Windows 桌面端网站访问即可查看详情：https://dsh-desktop.cn/
+DeepSeek Harness 的 Windows 桌面端，双击即用，无需预装 Node.js。可访问该网站查看详细：https://dsh-desktop.cn/
 
 ## 特性
 
