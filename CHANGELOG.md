@@ -25,6 +25,14 @@
 
 ---
 
+## 0.5.10（已上架 · 发布 GitHub Release）
+
+- **新增关闭确认 + 后台常驻（系统托盘）**：点窗口右上角 X 弹出确认框（**最小化到后台 / 退出程序**），避免误触直接退出；最小化后应用在系统托盘**持续运行**，点击托盘图标可恢复窗口，右键菜单支持「显示主窗口 / 退出」；`window-all-closed` 由「直接退出」改为**后台常驻**（无托盘时保持原退出行为，避免无入口）
+- **关闭确认弹窗主题联动**：确认框改为随桌面主题（读取 `--dsw-*` 设计令牌，含社区主题插件）的**透明悬浮卡片**，主按钮为**霓虹渐变**、按钮自定义风格化；亮/暗主题随 app
+- **连接手机（移动配对）窗口优化**：配对窗口**主题化**（随 `--dsw-*`）、控件**霓虹化**、内容**垂直居中**（消除底部空白）、顶部改用**主题化 Window Overlay**（消除黑色原生标题条）、霓虹控件边缘**抗锯齿优化**（1px 内描边高光）
+- **手机端 Dsh 本地投射（renderMobilePage）**：手机主页**随桌面主题**（`--dsw-*` 令牌）、主控件**霓虹化**
+- **版本同步**：`package.json` / `settings-general` fallback / `CHANGELOG` / 宣传页徽章 → v0.5.10
+
 ## 0.5.9（✅ 已上架 · 2026-08-22 发布 GitHub Release）
 
 - **余额悬浮卡支持对接任意 OpenAI 兼容网关（含 ChiApi）**（原"未上架（进行中）"转正）：`llm.balance` 从"仅 DeepSeek"改为**解析当前默认 provider**——读 `agent-default-model` 取提供方 id，经 `ctx.llm.listConfigurableProviders()` 找到其 `settingsNs`+`settingsPath`，用 `settings.describe({redactSecrets:false})` 读该分节的 `baseURL`+`apiKeyEnv`（非密），再 `credentials.resolve(apiKeyEnv)` 取真实 key，查 `{baseURL}/v1/dashboard/billing/subscription`+`/usage`，余额=hard_limit-total_usage（USD 展示，÷500000=QuotaPerUnit）；DeepSeek 或解析失败走 `api.deepseek.com/user/balance` 回退；secret 仍只经 credentials 单向解析
