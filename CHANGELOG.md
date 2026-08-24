@@ -24,6 +24,13 @@
 
 ---
 
+## 0.5.9（✅ 已上架 · 2026-08-22 发布 GitHub Release）
+
+- **余额悬浮卡支持对接任意 OpenAI 兼容网关（含 ChiApi）**（原"未上架（进行中）"转正）：`llm.balance` 从"仅 DeepSeek"改为**解析当前默认 provider**——读 `agent-default-model` 取提供方 id，经 `ctx.llm.listConfigurableProviders()` 找到其 `settingsNs`+`settingsPath`，用 `settings.describe({redactSecrets:false})` 读该分节的 `baseURL`+`apiKeyEnv`（非密），再 `credentials.resolve(apiKeyEnv)` 取真实 key，查 `{baseURL}/v1/dashboard/billing/subscription`+`/usage`，余额=hard_limit-total_usage（USD 展示，÷500000=QuotaPerUnit）；DeepSeek 或解析失败走 `api.deepseek.com/user/balance` 回退；secret 仍只经 credentials 单向解析
+- **修复 ChiApi baseURL 带 /v1 时 404**：baseURL 以 `/v1` 结尾时归一化为根再拼 `/v1/dashboard/billing/...`（双 /v1 → 404 → 已修，实测 USD 198.3576）
+- **修复切回官方模型报错**：DeepSeek 官方 provider id 为 `deepseek-official`（原回退判断只认 `deepseek`）→ 切回官方后错误地走 ChiApi 分支报"未配置 baseURL/API Key"→ 回退判断加入 `deepseek-official`（实测 CNY 79.52）
+- 两处修复均同步 `custom-patches.mjs`（升级重放一致）
+
 ## 0.5.8（✅ 已上架 · 2026-08-22 发布 GitHub Release）
 
 - **修复反馈 SMTP 永久"发送中"**：另一台设备网络不通时，反馈发送无超时导致永久挂起 → 主进程 `desktop:send-feedback` 增加 SMTP 超时（`connectionTimeout`/`greetingTimeout`/`socketTimeout` + `sendMail` timeout，15-30s）——网络正常照常秒发；网络不通时超时报"发送失败"而非永久"发送中"；需确保设备能访问 `smtp.qq.com:465`（防火墙/运营商放行）
