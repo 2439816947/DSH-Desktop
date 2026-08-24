@@ -11,6 +11,7 @@
 
 - **实时更新**：每次变更后立即同步 `resources/app/package.json` 的 `version` 与"关于"页显示的版本号
 - **发布方式（自 0.5.6 起）**：每次更新进仓库时，GitHub Releases **「Draft a new release」新建一个 Release（新 tag `vX.Y.Z`）**，body 简述此次更新，**保留以前版本**（不再覆盖同一 tag）；`dsh-desktop` tag 保留为**自动更新最新版通道**（资产随每次发布更新）
+- **云服务器同步（自 0.5.8 起）**：每次发布（上传安装包）后，**同步 `DeepSeek-Harness-setup.exe` + `latest.yml` 到云服务器**（`dsh-desktop.cn/downloads/`，脚本 `packaging/sync-to-server.ps1`）——宣传页下载与自动更新主源走云服务器加速（GitHub 镜像为 fallback）
 - **展示网页同步**（自 0.5.4 起）：每次执行版本更新时，`website/index.html`（及仓库预览页）的**版本徽章 / 下载信息同步更新**（不计入桌面版版本号、不 bump 独立版本）
 - **上传仓库同步宣传网页**（自 0.5.6 起强化）：**每次上传 GitHub 仓库（发布 Release / 推送含版本变化的提交）时，必须同步更新宣传网页 `website/index.html` 的相关信息**（版本徽章、下载链接、发布说明、特性描述等），随仓库一起推送
 - **宣传网站独立管理**（自 0.5.3 起）：`website/` 宣传页的更新**不计入桌面版版本号**，不 bump 版本、不记录本文件；桌面版版本号只随应用本身变更
@@ -41,6 +42,7 @@
   - **更新检查多源 fallback**：主源（GitHub 直连）失败自动切换国内加速镜像（`ghproxy.net` / `gh-proxy.com`）重试——`update-source.json` 的 `mirrors` 数组可自行增删
   - **更新卡片说明**（`fetchOwnReleaseNotes`）同样加镜像 fallback（api.github.com 直连慢时走镜像）
   - **插件市场（dshmarket）npm 加速**：harness 启动注入 `npm_config_registry=https://registry.npmmirror.com`（pnpm 安装走国内镜像；极新包镜像暂缺时用户可临时移除该环境变量）
+  - **安装包映射云服务器**：`DeepSeek-Harness-setup.exe` + `latest.yml` 同步到 `dsh-desktop.cn/downloads/`（nginx 静态服务 + Cloudflare 隧道）——**宣传页下载按钮改指云服务器**（不再跳 GitHub 直链，国内下载明显提速）；`update-source.json` 主源改 `https://dsh-desktop.cn/downloads/`（GitHub 镜像为 fallback，下次打包生效）
 - **发布方式**：新建 Release `v0.5.8`（tag `v0.5.8`，body 简述）+ 更新 `dsh-desktop` 自动更新通道
 
 ## 0.5.7（✅ 已上架 · 2026-08-22 发布 GitHub Release）
