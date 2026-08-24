@@ -42,7 +42,7 @@
   - **更新检查多源 fallback**：主源（GitHub 直连）失败自动切换国内加速镜像（`ghproxy.net` / `gh-proxy.com`）重试——`update-source.json` 的 `mirrors` 数组可自行增删
   - **更新卡片说明**（`fetchOwnReleaseNotes`）同样加镜像 fallback（api.github.com 直连慢时走镜像）
   - **插件市场（dshmarket）npm 加速**：harness 启动注入 `npm_config_registry=https://registry.npmmirror.com`（pnpm 安装走国内镜像；极新包镜像暂缺时用户可临时移除该环境变量）
-  - **安装包映射云服务器**：`DeepSeek-Harness-setup.exe` + `latest.yml` 同步到 `dsh-desktop.cn/downloads/`（nginx 静态服务 + Cloudflare 隧道）——**宣传页下载按钮改指云服务器**（不再跳 GitHub 直链，国内下载明显提速）；`update-source.json` 主源改 `https://dsh-desktop.cn/downloads/`（GitHub 镜像为 fallback，下次打包生效）
+  - **安装包映射云服务器（已撤回）**：曾把安装包同步到 `dsh-desktop.cn/downloads/`，实测**服务器带宽是瓶颈**（腾讯云轻量约 3Mbps，CF 隧道 0.28MB/s / IP 直连 0.36MB/s）→ **已撤回**，下载仍走 **GitHub 直链（实测 3.2MB/s，最快）**；`update-source.json` 主源回退 GitHub、mirrors 保留作 fallback；服务器 downloads 目录已清理
 - **发布方式**：新建 Release `v0.5.8`（tag `v0.5.8`，body 简述）+ 更新 `dsh-desktop` 自动更新通道
 
 ## 0.5.7（✅ 已上架 · 2026-08-22 发布 GitHub Release）
