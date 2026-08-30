@@ -25,6 +25,13 @@
 
 ---
 
+## 0.5.12（已上架 · 发布 GitHub Release）
+
+- **修复更新通道切换不生效（重要）**：修掉 `writeUpdateChannel` 中 `writeFileSync` 未导入导致的静默失败——此前点「测试版」后通道并未真正写入持久化文件，UI 虽显示"已切换"但检查仍走稳定版通道，导致「检查不到测试版」。现点切换即真正写入。
+- **支持双向更新**：`allowPrerelease + allowDowngrade` 开启——稳定版可检出测试版（v0.6.0-alpha）、测试版可「回退到稳定版」（降级）。
+- **切换通道自动检查**：点「稳定版 / 测试版」后自动触发检查更新，无需再手动点一次。
+- **版本同步**：`package.json` / `settings-general` fallback / `CHANGELOG` / 宣传页徽章 → v0.5.12
+
 ## 0.5.11（已上架 · 发布 GitHub Release）
 
 - **关于页全新升级**：
