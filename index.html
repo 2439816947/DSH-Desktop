@@ -460,6 +460,7 @@
 <footer>
   <div class="line">// 基于开源 DSH Desktop 构建 · 非 DeepSeek 官方产品，无从属或背书关系。</div>
   <div class="line">// <a href="https://github.com/2439816947/DSH-Desktop" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://github.com/2439816947/DSH-Desktop/blob/main/LICENSE" target="_blank" rel="noopener">MIT 许可证 ↗</a> · © 2026</div>
+  <div class="line">// 已累计访问 <span id="site-visits" style="color:var(--b)">—</span> 次 · 独立访客 <span id="site-visitors" style="color:var(--b)">—</span> 人</div>
 </footer>
 
 <script>
@@ -628,5 +629,36 @@
     .hide-stream { display: block !important; }
   }
 </style>
+<script>
+  // 访问量计数：基数(Cloudflare 历史累计) + 不蒜子实时增量
+  (() => {
+    var BASE_PV = 17231, BASE_UV = 3990;
+    var fmt = function(n){ return (parseInt(n, 10) || 0).toLocaleString("en-US"); };
+    var read = function(id){
+      var el = document.getElementById(id);
+      if (el === null) return 0;
+      var raw = (el.textContent || "").replace(/[^0-9.]/g, "");
+      var v = parseFloat(raw);
+      return (isNaN(v) || v <= 0) ? 0 : v;
+    };
+    var render = function(){
+      var pv = document.getElementById("site-visits");
+      var uv = document.getElementById("site-visitors");
+      if (pv !== null) pv.textContent = fmt(BASE_PV + read("busuanzi_value_site_pv"));
+      if (uv !== null) uv.textContent = fmt(BASE_UV + read("busuanzi_value_site_uv"));
+    };
+    render();
+    var tries = 0;
+    var timer = window.setInterval(function(){
+      tries += 1;
+      var el = document.getElementById("busuanzi_value_site_pv");
+      if (el !== null && (el.textContent || "").trim() !== "") { render(); window.clearInterval(timer); }
+      else if (tries >= 40) { window.clearInterval(timer); render(); }
+    }, 300);
+  })();
+</script>
+<span id="busuanzi_value_site_pv" style="display:none"></span>
+<span id="busuanzi_value_site_uv" style="display:none"></span>
+<script async src="https://busuanzi.ibruce.info/busuanzi.js"></script>
 </body>
 </html>
