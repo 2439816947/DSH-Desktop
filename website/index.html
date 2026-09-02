@@ -628,13 +628,13 @@
   }
 </style>
 <script>
-  // 访问量计数：从 Cloudflare Worker 读实时浏览量（dsh-desktop.cn/counter）
+  // 访问量计数：每次页面加载调 /counter?inc=1 → KV 自增（基数 22881）
   (() => {
-    var FALLBACK = 17231;
+    var FALLBACK = 22881;
     var fmt = function(n){ return (parseInt(n, 10) || 0).toLocaleString("en-US"); };
     var el = document.getElementById("site-visits");
     if (el !== null) el.textContent = fmt(FALLBACK);
-    fetch("https://dsh-desktop.cn/counter")
+    fetch("https://dsh-desktop.cn/counter?inc=1")
       .then(function(r){ return r.json(); })
       .then(function(d){
         if (el !== null && d && typeof d.pv === "number" && d.pv > 0) el.textContent = fmt(d.pv);
