@@ -25,6 +25,17 @@
 
 ---
 
+## 0.5.13（已上架 · 发布 GitHub Release）
+
+- **内置 Harness 大迁移到 dsh 0.1.2-rc.1**（自 0.1.1-rc.2）：完整 rc.1 依赖树（223 @deepseek-ai 包 + cordis-plugin-group）、大量新功能（会话流折叠、token 用量展示、回合导航、第三方语言、Python SDK Windows x64、ACP 标准会话/权限/MCP 等）。
+- **移除客制插件**：`dsh-desktop-market-installer` 从依赖/闭包/patch.yml 移除。
+- **移除悬浮余额**：`dsh-float-card` 与余额查询（`dsh-host-apiproxy` 在 rc.1 已移除、迁移到 @Remote）移除，不再显示浮卡/余额。
+- **定制全部重新移植到 rc.1**：关于页/反馈、命令中文、推理中文、计划开关、侧边栏霓虹品牌、brand-official 霓虹鲸鱼/渐变、权限中文、思考中文规则（system-prompt + 部署层 persona + 4 预设）、hero "The Future"+霓虹渐变、super-thinking 预设；`dsh-about-section` 保留。
+- **植入 dshmarket 插件市场（v1.44.0）**：接入社区可视化插件市场（浏览/搜索/一键安装社区插件）。1.44.0 已适配新版 dsh（不再 import 已删除的 `installSettingsSection` 等），经 app 依赖 / profile junction / patch.yml `dsh-market` 接入，boot 与市场入口验证通过。
+- **修复 dsh web 认证窗口**：desktop 主进程加载窗口时解析 harness 打印的带 token URL，消除窗口停留 "dsh web authentication required" 的问题。
+- **hero 徽标文案**：`hero.preview` 由「预览版/Preview」改为「RC」。
+- **版本同步**：`package.json`（`settings-general` 从 desktop bridge 读取）/ `CHANGELOG` / 宣传页徽章 → v0.5.13
+
 ## 0.5.12（已上架 · 发布 GitHub Release）
 
 - **修复更新通道切换不生效（重要）**：修掉 `writeUpdateChannel` 中 `writeFileSync` 未导入导致的静默失败——此前点「测试版」后通道并未真正写入持久化文件，UI 虽显示"已切换"但检查仍走稳定版通道，导致「检查不到测试版」。现点切换即真正写入。

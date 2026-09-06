@@ -21,3 +21,8 @@ resources/app/node_modules/
 logs/
 *.log
 temp/
+
+# 宣传页与网页（走 dsh-desktop.cn 云服务器，仓库隐藏）
+website/
+/index.html
+
